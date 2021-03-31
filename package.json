@@ -1,0 +1,16 @@
+{
+  "name": "node-magento-eqp",
+  "version": "1.0.0",
+  "description": "Simple API wrapper around the Magento Marketplace EQP API",
+  "main": "dist/index.js",
+  "repository": "https://github.com/netresearch/node-magento.eqp.git",
+  "author": "TheDevMinerTV <tobigames200@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "tslib": "^2.1.0"
+  }
+}
