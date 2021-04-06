@@ -3,7 +3,9 @@ name: 🔎 Lint
 on:
   workflow_dispatch:
   push:
+    branches-ignore: [gh-pages]
   pull_request:
+    branches-ignore: [gh-pages]
     types: [opened, synchronize]
 
 jobs:
@@ -20,7 +22,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🔨 Build
-        run: yarn build
+        run: yarn build:lib
 
   lint:
     name: 🔎 Lint
