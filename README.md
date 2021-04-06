@@ -4,8 +4,8 @@
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
-  <a href="https://twitter.com/TheDevMinerTV" target="_blank">
-    <img alt="Twitter: TheDevMinerTV" src="https://img.shields.io/twitter/follow/TheDevMinerTV.svg?style=social" />
+  <a href="https://twitter.com/netresearch" target="_blank">
+    <img alt="Twitter: Netresearch" src="https://img.shields.io/twitter/follow/netresearch.svg?style=social" />
   </a>
 </p>
 
@@ -39,7 +39,6 @@ main();
 
 👤 **TheDevMinerTV <tobigames200@gmail.com>**
 
-- Twitter: [@TheDevMinerTV](https://twitter.com/TheDevMinerTV)
 - Github: [@TheDevMinerTV](https://github.com/TheDevMinerTV)
 
 ## 🤝 Contributing
