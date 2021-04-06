@@ -30,6 +30,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
+          node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@netresearch'
 
@@ -70,10 +71,3 @@ jobs:
           asset_path: ./package.tgz
           asset_name: package.tgz
           asset_content_type: application/tgz
-
-      - name: ☁️ Publish documentation
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
-        with:
-          dir: docs
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}

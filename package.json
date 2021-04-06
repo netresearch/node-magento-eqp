@@ -1,6 +1,6 @@
 {
 	"name": "@netresearch/node-magento-eqp",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Simple API wrapper around the Magento Marketplace EQP API",
 	"main": "dist/index.js",
 	"repository": {
@@ -15,7 +15,7 @@
 		"build:lib:dev": "tsc -w",
 		"build:docs": "typedoc --out docs --theme ./node_modules/typedoc-default-themes-dark/bin/default src/index.ts",
 		"lint": "eslint src --ext .ts",
-		"prepack": "yarn build"
+		"prepack": "yarn build:lib"
 	},
 	"devDependencies": {
 		"@types/node": "8",
