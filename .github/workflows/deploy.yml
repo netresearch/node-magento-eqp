@@ -2,7 +2,7 @@ name: 📦☁️ Package and Deploy
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   deploy-and-deploy:
