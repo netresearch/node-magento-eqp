@@ -60,12 +60,12 @@ export class EQP {
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token */
-	async updateUser(mageId: string, data: Partial<User & { action: 'submit' }>): Promise<Package[]> {
+	async updateUser(data: Partial<User & { action?: 'submit' | 'draft' }>): Promise<Package[]> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
 
-		return (await this.client.put(`/users/${mageId}`, { action: 'submit', ...data })).data;
+		return (await this.client.put(`/users/${this.mageId}`, { action: 'submit', ...data })).data;
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#get-keys */
@@ -143,7 +143,7 @@ export class EQP {
 			throw new Error('Not authenticated.');
 		}
 
-		return this.updateUser(this.mageId, {
+		return this.updateUser({
 			api_callbacks: [{ name, url, username, password }]
 		});
 	}
