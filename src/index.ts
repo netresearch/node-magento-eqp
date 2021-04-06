@@ -19,6 +19,7 @@ export class EQP {
 
 	protected client: AxiosInstance;
 
+	/** The authenticated user's Magento ID */
 	mageId?: string;
 
 	constructor(options?: Partial<Options>) {
@@ -30,8 +31,14 @@ export class EQP {
 		});
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token */
-	async authenticate(clientId: string, clientSecret: string, expiresIn?: number): Promise<void> {
+	/**
+	 * Authenticate with the API. You can find the App ID and secret with the next link.
+	 * @see https://developer.magento.com/account/apikeys
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token
+	 * @example eqp.authenticate('APP_ID', 'APP_SECRET')
+	 * @example eqp.authenticate('APP_ID', 'APP_SECRET', 3600)
+	 */
+	async authenticate(appId: string, appSecret: string, expiresIn?: number): Promise<void> {
 		this.mageId = undefined;
 
 		const {
@@ -41,8 +48,8 @@ export class EQP {
 			{ grant_type: 'session', expires_in: expiresIn ?? 7200 },
 			{
 				auth: {
-					password: clientSecret,
-					username: clientId
+					password: appSecret,
+					username: appId
 				}
 			}
 		);
@@ -53,15 +60,23 @@ export class EQP {
 
 		if (this.autoRefreshToken) {
 			// Re-run this function 5 seconds before the token expires
-			setTimeout(() => this.authenticate(clientId, clientSecret), expires_in * 1000 - 5);
+			setTimeout(() => this.authenticate(appId, appSecret), expires_in * 1000 - 5);
 		}
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile */
-	getUser(summary?: false): Promise<User>;
+	/**
+	 * Get the full user profile
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile-data
+	 * @example eqp.getUser();
+	 */
+	getUser(summary: false): Promise<User>;
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile */
-	getUser(summary?: true): Promise<UserSummary>;
+	/**
+	 * Get a summarized version of the user profile
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile-data
+	 * @example eqp.getUser(true);
+	 */
+	getUser(summary: true): Promise<UserSummary>;
 
 	async getUser(summary = false): Promise<User | UserSummary> {
 		if (!this.mageId) {
@@ -71,8 +86,12 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}${summary ? '?style=summary' : ''}`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token */
-	async updateUser(data: Partial<User & { action?: 'submit' | 'draft' }>): Promise<Package[]> {
+	/**
+	 * Update the profile of the authenticated user.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#update-profile-data
+	 * @example eqp.updateUser({ action: 'submit', personal_profile: { bio: 'Changed with netresearch/node-magento-eqp' } })
+	 */
+	async updateUser(data: Partial<User & { action?: 'submit' | 'draft' }>): Promise<User> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
@@ -80,7 +99,13 @@ export class EQP {
 		return (await this.client.put(`/users/${this.mageId}`, { action: 'submit', ...data })).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#get-keys */
+	/**
+	 * Get the Magento keys owned by the authenticated account.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#get-keys
+	 * @example eqp.getKeys()
+	 * @example eqp.getKeys({ type: 'm2' })
+	 * @example eqp.getKeys({ label: 'testing' })
+	 */
 	async getKeys(
 		options?: Partial<{ type: 'all' | 'm1' | 'm2'; label: string }>
 	): Promise<{ m1: Magento1Key[]; m2: Magento2Key[] }> {
@@ -98,7 +123,12 @@ export class EQP {
 		).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
+	// TODO: Provide typings
+	/**
+	 * Get the page view reports.
+	 * Untested
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
+	 */
 	async getPageviewReports(): Promise<unknown> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -107,7 +137,12 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}/reports/pageviews`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
+	// TODO: Provide typings
+	/**
+	 * Get the totals of all reports.
+	 * Untested
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
+	 */
 	async getTotalReports(): Promise<unknown> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -116,7 +151,12 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}/reports/totals`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
+	// TODO: Provide typings
+	/**
+	 * Get the sales report.
+	 * Untested
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
+	 */
 	async getSalesReports(): Promise<unknown> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -125,7 +165,12 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}/reports/pageviews`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
+	// TODO: Provide typings
+	/**
+	 * Get the reports about refunds.
+	 * Untested
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
+	 */
 	async getRefundReports(): Promise<unknown> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -134,7 +179,11 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}/reports/refunds`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload */
+	/**
+	 * Get a file by it's upload ID.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload
+	 * @example eqp.getFile('1');
+	 */
 	async getFile(uploadId: string, offset?: number, limit?: number): Promise<File> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -143,7 +192,11 @@ export class EQP {
 		return (await this.client.get(`/files/uploads/${uploadId}`, { params: { offset, limit } })).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
+	/**
+	 * Get all packages for the authenticated account.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
+	 * @example eqp.getPackages()
+	 */
 	async getPackages(): Promise<Package[]> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -152,7 +205,11 @@ export class EQP {
 		return (await this.client.get('/products/packages')).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
+	/**
+	 * Get a specific package by it's submission ID.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
+	 * @example eqp.getPackageBySubmissionId('1')
+	 */
 	async getPackageBySubmissionId(submissionId: string): Promise<Package> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -161,7 +218,11 @@ export class EQP {
 		return (await this.client.get(`/products/packages/${submissionId}`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
+	/**
+	 * Get a specific package by it's item ID.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
+	 * @example eqp.getPackageByItemId('1')
+	 */
 	async getPackageByItemId(itemId: string): Promise<Package> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -170,7 +231,12 @@ export class EQP {
 		return (await this.client.get(`/products/packages/items/${itemId}`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/reports.html @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
+	/**
+	 * Get all reports or only a specific one
+	 * Untested
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/reports.html
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
+	 */
 	async getReports(metricName?: string): Promise<unknown> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
@@ -179,8 +245,12 @@ export class EQP {
 		return (await this.client.get(`/reports/metrics/${metricName ?? ''}`)).data;
 	}
 
-	/** @see https://devdocs.magento.com/marketplace/eqp/v1/callbacks.html#register-a-callback */
-	async registerCallback(name: string, url: string, username: string, password: string): Promise<Package[]> {
+	/**
+	 * Register a callback.
+	 * @see https://devdocs.magento.com/marketplace/eqp/v1/callbacks.html#register-a-callback
+	 * @example eqp.registerCallback('Local test server', 'https://example.com/callback', 'magento', 'marketplace')
+	 */
+	async registerCallback(name: string, url: string, username: string, password: string): Promise<User> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
@@ -190,9 +260,12 @@ export class EQP {
 		});
 	}
 
+	/** Parse a callback request body. */
 	parseCallback(
 		event: EQPStatusUpdateEvent
 	): Promise<{ item: Package; submission: Package; status: string; flow: string }>;
+
+	/** Parse a callback request body. */
 	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; result: string }>;
 
 	async parseCallback(
