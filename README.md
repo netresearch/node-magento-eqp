@@ -22,7 +22,7 @@ yarn install
 ## Usage
 
 ```typescript
-import * as MagentoEQP from 'node-magento-eqp';
+import * as MagentoEQP from '@netresearch/node-magento-eqp';
 
 const eqp = new MagentoEQP.EQP();
 
