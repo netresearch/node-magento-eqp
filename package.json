@@ -7,6 +7,8 @@
 	"author": "TheDevMinerTV <tobigames200@gmail.com>",
 	"license": "MIT",
 	"scripts": {
+		"build": "tsc",
+		"build:dev": "tsc -w",
 		"lint": "eslint src --ext .ts"
 	},
 	"devDependencies": {
