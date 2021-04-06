@@ -20,6 +20,8 @@ export class EQP {
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token */
 	async authenticate(clientId: string, clientSecret: string, expiresIn?: number): Promise<void> {
+		this.mageId = undefined;
+
 		const {
 			data: { expires_in, mage_id, ust }
 		} = await this.client.post<{ mage_id: string; ust: string; expires_in: number }>(
@@ -38,7 +40,8 @@ export class EQP {
 		this.client.defaults.headers.common['Authorization'] = `Bearer ${ust}`;
 
 		if (this.autoRefreshToken) {
-			setTimeout(() => this.authenticate(clientId, clientSecret), expires_in * 1000);
+			// Re-run this function 5 seconds before the token expires
+			setTimeout(() => this.authenticate(clientId, clientSecret), expires_in * 1000 - 5);
 		}
 	}
 
