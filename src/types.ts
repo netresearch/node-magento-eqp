@@ -211,6 +211,18 @@ export interface UserSummary {
 	};
 }
 
+export interface File {
+	file_upload_id: string;
+	filename: string;
+	content_type: string;
+	size: number;
+	malware_status: string;
+	file_hash: string;
+	submission_ids: string[];
+	is_profile_image: boolean;
+	url: string;
+}
+
 interface Event {
 	callback_event: string;
 	update_info: unknown;

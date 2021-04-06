@@ -122,6 +122,15 @@ export class EQP {
 		return (await this.client.get(`/users/${this.mageId}/reports/refunds`)).data;
 	}
 
+	/** @see https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload */
+	async getFile(uploadId: string, offset?: number, limit?: number): Promise<File> {
+		if (!this.mageId) {
+			throw new Error('Not authenticated.');
+		}
+
+		return (await this.client.get(`/files/uploads/${uploadId}`, { params: { offset, limit } })).data;
+	}
+
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
 	async getPackages(): Promise<Package[]> {
 		if (!this.mageId) {
@@ -129,6 +138,24 @@ export class EQP {
 		}
 
 		return (await this.client.get('/products/packages')).data;
+	}
+
+	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
+	async getPackageBySubmissionId(submissionId: string): Promise<Package[]> {
+		if (!this.mageId) {
+			throw new Error('Not authenticated.');
+		}
+
+		return (await this.client.get(`/products/packages/${submissionId}`)).data;
+	}
+
+	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
+	async getItem(itemId: string): Promise<Package[]> {
+		if (!this.mageId) {
+			throw new Error('Not authenticated.');
+		}
+
+		return (await this.client.get(`/products/packages/items/${itemId}`)).data;
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/reports.html @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports */
