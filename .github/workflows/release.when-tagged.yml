@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    name: 📦☁️ Release to GitHub Releases
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

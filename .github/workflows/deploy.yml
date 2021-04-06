@@ -5,7 +5,8 @@ on:
     types: [created]
 
 jobs:
-  build:
+  deploy-and-deploy:
+    name: 📦☁️ Package and Deploy
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2

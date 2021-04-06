@@ -1,4 +1,4 @@
-name: ⚡ Lint
+name: 🔎 Lint
 
 on:
   workflow_dispatch:
@@ -7,21 +7,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  lint:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.16.0'
-
-      - name: ⚡ Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: 🔎 Lint
-        run: yarn lint
-
   build:
+    name: 🔨 Build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -34,3 +21,18 @@ jobs:
 
       - name: 🔨 Build
         run: yarn build
+
+  lint:
+    name: 🔎 Lint
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.16.0'
+
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔎 Lint
+        run: yarn lint
