@@ -1,4 +1,4 @@
-name: Deploy to NPM and GitHub Package Registry
+name: 📦☁️ Package and Deploy
 
 on:
   release:
@@ -15,8 +15,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@netresearch'
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: ☁️ Publish to NPM
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -25,6 +28,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@netresearch'
 
-      - run: npm publish
+      - name: ☁️ Publish to GitHub Package Registry
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

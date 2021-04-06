@@ -1,4 +1,4 @@
-name: Lint
+name: ⚡ Lint
 
 on:
   workflow_dispatch:
@@ -14,8 +14,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.16.0'
-      - run: yarn
-      - run: yarn lint
+
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔎 Lint
+        run: yarn lint
 
   build:
     runs-on: ubuntu-18.04
@@ -24,5 +28,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.16.0'
-      - run: yarn install
-      - run: yarn build
+
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔨 Build
+        run: yarn build

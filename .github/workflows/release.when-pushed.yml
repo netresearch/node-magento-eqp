@@ -1,6 +1,6 @@
 # https://gist.github.com/paullessing/d706c8af51faca68c6ba0f9f9bae4e4b#file-release-when-pushed-yml
 
-name: Releases
+name: 📦☁️ Release to GitHub Releases
 
 on:
   workflow_dispatch:
@@ -16,14 +16,18 @@ jobs:
         with:
           node-version: '14.16.0'
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn pack --filename=package.tgz
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 📦 Package
+        run: yarn pack --filename=package.tgz
+
       - uses: Klemensas/action-autotag@stable
         id: update_tag
         with:
           tag_prefix: 'v'
 
-      - name: Create Release
+      - name: ➕ Create release
         if: steps.update_tag.outputs.tagname
         uses: actions/create-release@v1
         id: create_release
@@ -35,7 +39,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset to GitHub Releases
+      - name: 🚀 Upload package to GitHub Releases
         if: steps.update_tag.outputs.tagname
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
