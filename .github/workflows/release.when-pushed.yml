@@ -26,7 +26,7 @@ jobs:
       - uses: Klemensas/action-autotag@stable
         id: update_tag
         with:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: '${{ secrets.GH_PAT }}'
           tag_prefix: 'v'
 
       - name: ➕ Create release
@@ -34,7 +34,7 @@ jobs:
         uses: actions/create-release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GH_PAT }}'
         with:
           tag_name: ${{ steps.update_tag.outputs.tagname }}
           release_name: Release ${{ steps.update_tag.outputs.tagname }}
@@ -46,7 +46,7 @@ jobs:
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GH_PAT }}'
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./package.tgz
