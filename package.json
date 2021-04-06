@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"description": "Simple API wrapper around the Magento Marketplace EQP API",
 	"main": "dist/index.js",
-	"repository": "https://github.com/netresearch/node-magento.eqp.git",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/netresearch/node-magento-eqp.git"
+	},
 	"author": "TheDevMinerTV <tobigames200@gmail.com>",
 	"license": "MIT",
 	"scripts": {
