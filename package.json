@@ -10,8 +10,10 @@
 	"author": "TheDevMinerTV <tobigames200@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"build": "tsc",
-		"build:dev": "tsc -w",
+		"build": "yarn build:lib && yarn build:docs",
+		"build:lib": "tsc",
+		"build:lib:dev": "tsc -w",
+		"build:docs": "typedoc --out docs --theme ./node_modules/typedoc-default-themes-dark/bin/default src/index.ts",
 		"lint": "eslint src --ext .ts",
 		"prepack": "yarn build"
 	},
@@ -20,11 +22,13 @@
 		"@typescript-eslint/eslint-plugin": "^4.21.0",
 		"@typescript-eslint/parser": "^4.21.0",
 		"eslint": "^7.23.0",
+		"typedoc": "^0.20.35",
 		"typescript": "^4.2.3"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
-		"tslib": "^2.1.0"
+		"tslib": "^2.1.0",
+		"typedoc-default-themes-dark": "^0.12.10"
 	},
 	"engines": {
 		"node": ">=8"
