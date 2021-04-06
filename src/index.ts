@@ -1,5 +1,5 @@
 import Axios, { AxiosInstance } from 'axios';
-import { Environment, Magento1Key, Magento2Key, Options, Package, User, UserSummary } from './types';
+import { Environment, File, Magento1Key, Magento2Key, Options, Package, User, UserSummary } from './types';
 
 export class EQP {
 	protected environment: Environment;
@@ -141,7 +141,7 @@ export class EQP {
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
-	async getPackageBySubmissionId(submissionId: string): Promise<Package[]> {
+	async getPackageBySubmissionId(submissionId: string): Promise<Package> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
@@ -150,7 +150,7 @@ export class EQP {
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details */
-	async getItem(itemId: string): Promise<Package[]> {
+	async getPackageByItemId(itemId: string): Promise<Package> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
