@@ -70,3 +70,10 @@ jobs:
           asset_path: ./package.tgz
           asset_name: package.tgz
           asset_content_type: application/tgz
+
+      - name: ☁️ Publish documentation
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+        with:
+          dir: docs
+          branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
