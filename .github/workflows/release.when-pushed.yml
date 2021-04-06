@@ -15,12 +15,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.16.0'
+
       - run: yarn install --frozen-lockfile
       - run: yarn pack --filename=package.tgz
       - uses: Klemensas/action-autotag@stable
         id: update_tag
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: 'v'
 
       - name: Create Release
