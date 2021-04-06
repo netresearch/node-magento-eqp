@@ -223,20 +223,20 @@ export interface File {
 	url: string;
 }
 
-interface Event {
+export interface RawCallbackEvent {
 	callback_event: string;
 	update_info: unknown;
 }
 
-interface MalwareScanCompleteEvent extends Event {
+export interface MalwareScanCompleteEvent extends RawCallbackEvent {
 	callback_event: 'malware_scan_complete';
-	updateInfo: {
+	update_info: {
 		file_upload_id: string;
 		tool_result: string;
 	};
 }
 
-interface EQPStatusUpdateEvent extends Event {
+export interface EQPStatusUpdateEvent extends RawCallbackEvent {
 	callback_event: 'eqp_status_update';
 	update_info: {
 		submission_id: string;
@@ -245,8 +245,6 @@ interface EQPStatusUpdateEvent extends Event {
 		current_status: string;
 	};
 }
-
-export type CallbackEvent = EQPStatusUpdateEvent | MalwareScanCompleteEvent;
 
 export interface Magento1Key {
 	product_name: string;

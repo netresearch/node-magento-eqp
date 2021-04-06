@@ -1,5 +1,17 @@
 import Axios, { AxiosInstance } from 'axios';
-import { Environment, File, Magento1Key, Magento2Key, Options, Package, User, UserSummary } from './types';
+import {
+	Environment,
+	EQPStatusUpdateEvent,
+	File,
+	Magento1Key,
+	Magento2Key,
+	MalwareScanCompleteEvent,
+	Options,
+	Package,
+	RawCallbackEvent,
+	User,
+	UserSummary
+} from './types';
 
 export class EQP {
 	protected environment: Environment;
@@ -178,6 +190,39 @@ export class EQP {
 		});
 	}
 
-	// TODO
-	// parseCallback(event: CallbackEvent): Promise<unknown>;
+	parseCallback(
+		event: EQPStatusUpdateEvent
+	): Promise<{ item: Package; submission: Package; status: string; flow: string }>;
+	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; result: string }>;
+
+	async parseCallback(
+		event: RawCallbackEvent
+	): Promise<
+		{ item: Package; submission: Package; status: string; flow: string } | { file: File; result: string }
+	> {
+		switch (event.callback_event) {
+			case 'eqp_status_update': {
+				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;
+
+				return {
+					item: await this.getPackageByItemId(updateInfo.item_id),
+					submission: await this.getPackageBySubmissionId(updateInfo.submission_id),
+					status: updateInfo.current_status,
+					flow: updateInfo.eqp_flow
+				};
+			}
+
+			case 'malware_scan_complete': {
+				const { update_info: updateInfo } = event as MalwareScanCompleteEvent;
+
+				return {
+					file: await this.getFile(updateInfo.file_upload_id),
+					result: updateInfo.tool_result
+				};
+			}
+
+			default:
+				throw new Error(`unknown callback_event "${event.callback_event}"`);
+		}
+	}
 }
