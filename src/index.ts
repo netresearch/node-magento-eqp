@@ -58,12 +58,12 @@ export class EQP {
 	}
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile */
-	getUser(): Promise<User>;
+	getUser(summary?: false): Promise<User>;
 
 	/** @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#profile */
-	getUser(summary?: boolean): Promise<UserSummary>;
+	getUser(summary?: true): Promise<UserSummary>;
 
-	async getUser(summary?: boolean): Promise<User | UserSummary> {
+	async getUser(summary = false): Promise<User | UserSummary> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
