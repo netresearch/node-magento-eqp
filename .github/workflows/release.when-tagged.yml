@@ -1,6 +1,6 @@
 # https://gist.github.com/paullessing/d706c8af51faca68c6ba0f9f9bae4e4b#file-release-when-tagged-yml
 
-name: 📦☁️ Release to GitHub Releases
+name: 📦☁️ Release
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: 📦☁️ Release to GitHub Releases
+    name: 📦☁️ Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +20,30 @@ jobs:
 
       - name: ⚡ Install dependencies
         run: yarn install --frozen-lockfile
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.16.0'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@netresearch'
+
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: ☁️ Publish to NPM
+        run: yarn publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: actions/setup-node@v1
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@netresearch'
+
+      - name: ☁️ Publish to GitHub Package Registry
+        run: yarn publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦 Package
         run: yarn pack --filename=package.tgz
