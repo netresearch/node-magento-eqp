@@ -1157,11 +1157,6 @@ type-fest@^0.8.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
-typedoc-default-themes-dark@^0.12.10:
-  version "0.12.10"
-  resolved "https://registry.yarnpkg.com/typedoc-default-themes-dark/-/typedoc-default-themes-dark-0.12.10.tgz#46a54dd8ef6e8d8c3db7eff1462ee052b41bdd8d"
-  integrity sha512-XZ1Eb9mrIxzbch7sk3vn7J8anD1aq2xRx4XWvyKweqxQlKFf1UmDOjNzCvSbDJWK5J+6Nwx4I+YNiJFK3eIBgw==
-
 typedoc-default-themes@^0.12.9:
   version "0.12.10"
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.12.10.tgz#614c4222fe642657f37693ea62cad4dafeddf843"

@@ -13,7 +13,7 @@
 		"build": "yarn build:lib && yarn build:docs",
 		"build:lib": "tsc",
 		"build:lib:dev": "tsc -w",
-		"build:docs": "typedoc --out docs --theme ./node_modules/typedoc-default-themes-dark/bin/default src/index.ts",
+		"build:docs": "typedoc --out docs src/index.ts",
 		"lint": "eslint src --ext .ts",
 		"prepack": "yarn build:lib"
 	},
@@ -27,8 +27,7 @@
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
-		"tslib": "^2.1.0",
-		"typedoc-default-themes-dark": "^0.12.10"
+		"tslib": "^2.1.0"
 	},
 	"engines": {
 		"node": ">=8"
