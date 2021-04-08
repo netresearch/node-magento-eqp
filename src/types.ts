@@ -34,7 +34,7 @@ export interface Package {
 	};
 	launch_on_approval: boolean;
 	requested_launch_date: string;
-	original_launch_date?: any;
+	original_launch_date?: string;
 	latest_launch_date: string;
 	max_version_launched: any[];
 	documentation_artifacts: {
@@ -171,11 +171,11 @@ export interface User {
 		created_at: string;
 		modified_at: string;
 		social_media_info: {
-			twitter: string;
-			stackexchange_url?: any;
-			facebook_url: string;
-			linkedin_url?: any;
-			github_username: string;
+			twitter?: string;
+			stackexchange_url?: string;
+			facebook_url?: string;
+			linkedin_url?: string;
+			github_username?: string;
 		};
 		addresses: {
 			address_key: number;
