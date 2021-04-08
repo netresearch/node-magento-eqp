@@ -106,9 +106,7 @@ export class EQP {
 	 * @example eqp.getKeys({ type: 'm2' })
 	 * @example eqp.getKeys({ label: 'testing' })
 	 */
-	async getKeys(
-		options?: Partial<{ type: 'all' | 'm1' | 'm2'; label: string }>
-	): Promise<{ m1: Magento1Key[]; m2: Magento2Key[] }> {
+	async getKeys(options?: Partial<{ type: 'all' | 'm1' | 'm2'; label: string }>): Promise<{ m1: Magento1Key[]; m2: Magento2Key[] }> {
 		if (!this.mageId) {
 			throw new Error('Not authenticated.');
 		}
@@ -263,15 +261,20 @@ export class EQP {
 	/** Parse a callback request body. */
 	parseCallback(
 		event: EQPStatusUpdateEvent
-	): Promise<{ item: Package; submission: Package; status: string; flow: string }>;
+	): Promise<{
+		item: Package;
+		submission: Package;
+		status: string;
+		flow: string;
+	}>;
 
 	/** Parse a callback request body. */
-	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; result: string }>;
+	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; submissions: Package[]; result: string }>;
 
 	async parseCallback(
 		event: RawCallbackEvent
 	): Promise<
-		{ item: Package; submission: Package; status: string; flow: string } | { file: File; result: string }
+		{ item: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
 	> {
 		switch (event.callback_event) {
 			case 'eqp_status_update': {
@@ -288,8 +291,11 @@ export class EQP {
 			case 'malware_scan_complete': {
 				const { update_info: updateInfo } = event as MalwareScanCompleteEvent;
 
+				const file = await this.getFile(updateInfo.file_upload_id);
+
 				return {
-					file: await this.getFile(updateInfo.file_upload_id),
+					file,
+					submissions: await Promise.all(file.submission_ids.map((id) => this.getPackageBySubmissionId(id))),
 					result: updateInfo.tool_result
 				};
 			}
