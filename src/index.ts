@@ -274,14 +274,14 @@ export class EQP {
 	async parseCallback(
 		event: RawCallbackEvent
 	): Promise<
-		{ item: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
+		{ item?: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
 	> {
 		switch (event.callback_event) {
 			case 'eqp_status_update': {
 				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;
 
 				return {
-					item: await this.getPackageByItemId(updateInfo.item_id),
+					item: updateInfo.item_id === '' ? undefined : await this.getPackageByItemId(updateInfo.item_id),
 					submission: await this.getPackageBySubmissionId(updateInfo.submission_id),
 					status: updateInfo.current_status,
 					flow: updateInfo.eqp_flow
