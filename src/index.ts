@@ -305,3 +305,5 @@ export class EQP {
 		}
 	}
 }
+
+export * from './types';
