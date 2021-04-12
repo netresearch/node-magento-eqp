@@ -1,4 +1,5 @@
 import Axios, { AxiosInstance } from 'axios';
+import { parseCallback } from './Parser';
 import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent } from './types/callbacks';
 import { Environment, EQPOptions } from './types/options';
 import { File, Magento1Key, Magento2Key, Package } from './types/packages';
@@ -252,14 +253,7 @@ export class EQP {
 	}
 
 	/** Parse a callback request body. */
-	parseCallback(
-		event: EQPStatusUpdateEvent
-	): Promise<{
-		item: Package;
-		submission: Package;
-		status: string;
-		flow: string;
-	}>;
+	parseCallback(event: EQPStatusUpdateEvent): Promise<{ item: Package; submission: Package; status: string; flow: string }>;
 
 	/** Parse a callback request body. */
 	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; submissions: Package[]; result: string }>;
@@ -269,34 +263,8 @@ export class EQP {
 	): Promise<
 		{ item?: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
 	> {
-		switch (event.callback_event) {
-			case 'eqp_status_update': {
-				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;
-
-				return {
-					item: updateInfo.item_id === '' ? undefined : await this.getPackageByItemId(updateInfo.item_id),
-					submission: await this.getPackageBySubmissionId(updateInfo.submission_id),
-					status: updateInfo.current_status,
-					flow: updateInfo.eqp_flow
-				};
-			}
-
-			case 'malware_scan_complete': {
-				const { update_info: updateInfo } = event as MalwareScanCompleteEvent;
-
-				const file = await this.getFile(updateInfo.file_upload_id);
-
-				return {
-					file,
-					submissions: await Promise.all(file.submission_ids.map((id) => this.getPackageBySubmissionId(id))),
-					result: updateInfo.tool_result
-				};
-			}
-
-			default:
-				throw new Error(`unknown callback_event "${event.callback_event}"`);
-		}
+		return parseCallback(this, event);
 	}
 }
 
-export * from './types';
+
