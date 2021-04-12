@@ -1,17 +1,10 @@
 import Axios, { AxiosInstance } from 'axios';
-import {
-	Environment,
-	EQPStatusUpdateEvent,
-	File,
-	Magento1Key,
-	Magento2Key,
-	MalwareScanCompleteEvent,
-	Options,
-	Package,
-	RawCallbackEvent,
-	User,
-	UserSummary
-} from './types';
+import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent } from './types/callbacks';
+import { Environment, EQPOptions } from './types/options';
+import { File, Magento1Key, Magento2Key, Package } from './types/packages';
+import { User, UserSummary } from './types/users';
+
+export * from './types';
 
 export class EQP {
 	protected environment: Environment;
@@ -22,7 +15,7 @@ export class EQP {
 	/** The authenticated user's Magento ID */
 	mageId?: string;
 
-	constructor(options?: Partial<Options>) {
+	constructor(options?: Partial<EQPOptions>) {
 		this.environment = options?.environment ?? 'production';
 		this.autoRefreshToken = options?.autoRefresh ?? false;
 
