@@ -28,10 +28,12 @@ The primary focus of this package is, to provide a simple API wrapper and typing
 ## Install
 
 ```sh
-yarn install
+yarn install @netresearch/node-magento-eqp
 ```
 
 ## Usage
+
+Usage in TypeScript (with ES Modules)
 
 ```typescript
 import * as MagentoEQP from '@netresearch/node-magento-eqp';
@@ -39,9 +41,29 @@ import * as MagentoEQP from '@netresearch/node-magento-eqp';
 const eqp = new MagentoEQP.EQP();
 
 async function main() {
-	await eqp.authenticate('APP_ID', 'APP_SECRET');
+  await eqp.authenticate('APP_ID', 'APP_SECRET');
 
-	const packages = await eqp.getPackages();
+  const packages = await eqp.getPackages();
+
+  // Do something with the packages
+}
+
+main();
+```
+
+Usage in JavaScript (with CommonJS)
+
+```typescript
+const MagentoEQP = require('@netresearch/node-magento-eqp');
+
+const eqp = new MagentoEQP.EQP();
+
+async function main() {
+  await eqp.authenticate('APP_ID', 'APP_SECRET');
+
+  const packages = await eqp.getPackages();
+
+  // Do something with the packages
 }
 
 main();
