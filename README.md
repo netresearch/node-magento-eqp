@@ -1,11 +1,23 @@
 <h1 align="center">Welcome to node-magento-eqp 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  <a href="https://npmjs.com/package/@netresearch/node-magento-eqp">
+    <img alt="Version" src="https://img.shields.io/npm/v/@netresearch/node-magento-eqp?style=for-the-badge" />
   </a>
+
+  <a href="https://github.com/netresearch/node-magento-eqp/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/npm/l/@netresearch/node-magento-eqp.svg?style=for-the-badge" />
+  </a>
+
+  <a href="https://github.com/netresearch/node-magento-eqp/actions" target="_blank">
+    <img alt="Build status" src="https://img.shields.io/github/workflow/status/netresearch/node-magento-eqp/%F0%9F%94%8E%20Lint?style=for-the-badge" />
+  </a>
+
+  <a href="https://netresearch.github.io/node-magento-eqp" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/Documentation-available-green.svg?style=for-the-badge">
+  </a>
+
   <a href="https://twitter.com/netresearch" target="_blank">
-    <img alt="Twitter: Netresearch" src="https://img.shields.io/twitter/follow/netresearch.svg?style=social" />
+    <img alt="Twitter: Netresearch" src="https://img.shields.io/twitter/follow/netresearch?style=for-the-badge" />
   </a>
 </p>
 
