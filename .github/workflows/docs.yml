@@ -23,8 +23,7 @@ jobs:
         run: yarn build:docs
 
       - name: ☁️ Publish documentation
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          dir: docs
+          folder: docs
           branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
