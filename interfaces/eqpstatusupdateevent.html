@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EQPOptions | @netresearch/node-magento-eqp</title>
+	<title>EQPStatusUpdateEvent | @netresearch/node-magento-eqp</title>
 	<meta name="description" content="Documentation for @netresearch/node-magento-eqp">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">@netresearch/node-magento-eqp</a>
 				</li>
 				<li>
-					<a href="eqpoptions.html">EQPOptions</a>
+					<a href="eqpstatusupdateevent.html">EQPStatusUpdateEvent</a>
 				</li>
 			</ul>
-			<h1>Interface EQPOptions</h1>
+			<h1>Interface EQPStatusUpdateEvent</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">EQPOptions</span>
+						<a href="rawcallbackevent.html" class="tsd-signature-type" data-tsd-kind="Interface">RawCallbackEvent</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">EQPStatusUpdateEvent</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -80,8 +85,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eqpoptions.html#autorefresh" class="tsd-kind-icon">auto<wbr>Refresh</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eqpoptions.html#environment" class="tsd-kind-icon">environment</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="eqpstatusupdateevent.html#callback_event" class="tsd-kind-icon">callback_<wbr>event</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="eqpstatusupdateevent.html#update_info" class="tsd-kind-icon">update_<wbr>info</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,25 +94,44 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autorefresh" class="tsd-anchor"></a>
-					<h3>auto<wbr>Refresh</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Refresh<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+					<a name="callback_event" class="tsd-anchor"></a>
+					<h3>callback_<wbr>event</h3>
+					<div class="tsd-signature tsd-kind-icon">callback_<wbr>event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;eqp_status_update&quot;</span></div>
 					<aside class="tsd-sources">
+						<p>Overrides <a href="rawcallbackevent.html">RawCallbackEvent</a>.<a href="rawcallbackevent.html#callback_event">callback_event</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/da7f4d7/src/types/options.ts#L5">types/options.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/dba5143/src/types/callbacks.ts#L15">types/callbacks.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="environment" class="tsd-anchor"></a>
-					<h3>environment</h3>
-					<div class="tsd-signature tsd-kind-icon">environment<span class="tsd-signature-symbol">:</span> <a href="../modules.html#environment" class="tsd-signature-type" data-tsd-kind="Type alias">Environment</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+					<a name="update_info" class="tsd-anchor"></a>
+					<h3>update_<wbr>info</h3>
+					<div class="tsd-signature tsd-kind-icon">update_<wbr>info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>current_status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>eqp_flow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>item_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>submission_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
+						<p>Overrides <a href="rawcallbackevent.html">RawCallbackEvent</a>.<a href="rawcallbackevent.html#update_info">update_info</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/da7f4d7/src/types/options.ts#L4">types/options.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/dba5143/src/types/callbacks.ts#L16">types/callbacks.ts:16</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>current_<wbr>status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>eqp_<wbr>flow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>item_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>submission_<wbr>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -127,24 +151,24 @@
 					<li class=" tsd-kind-interface">
 						<a href="apicallback.html" class="tsd-kind-icon">APICallback</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="eqpoptions.html" class="tsd-kind-icon">EQPOptions</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="eqpoptions.html" class="tsd-kind-icon">EQPOptions</a>
+						<a href="eqpstatusupdateevent.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Event</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="eqpoptions.html#autorefresh" class="tsd-kind-icon">auto<wbr>Refresh</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+								<a href="eqpstatusupdateevent.html#callback_event" class="tsd-kind-icon">callback_<wbr>event</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="eqpoptions.html#environment" class="tsd-kind-icon">environment</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+								<a href="eqpstatusupdateevent.html#update_info" class="tsd-kind-icon">update_<wbr>info</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="eqpstatusupdateevent.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Event</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="malwarescancompleteevent.html" class="tsd-kind-icon">Malware<wbr>Scan<wbr>Complete<wbr>Event</a>
 					</li>

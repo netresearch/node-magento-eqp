@@ -1,5 +1,0 @@
-src
-docs
-.*
-*.md
-tsconfig.json
