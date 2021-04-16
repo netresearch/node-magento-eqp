@@ -1,61 +1,34 @@
-import Axios, { AxiosInstance } from 'axios';
+import { AxiosAdapter } from './Adapters';
+import { AuthenticatedAdapter } from './AuthenticatedAdapter';
 import { parseCallback } from './Parser';
 import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent } from './types/callbacks';
-import { Environment, EQPOptions } from './types/options';
-import { File, Magento1Key, Magento2Key, Package } from './types/packages';
+import { File, Magento1Key, Magento2Key } from './types/common';
+import { EQPOptions } from './types/options';
+import { Package } from './types/packages';
 import { User, UserSummary } from './types/users';
 
 export * from './types';
 
 export class EQP {
-	protected environment: Environment;
-	protected autoRefreshToken: boolean;
-
-	protected client: AxiosInstance;
+	protected adapter: AuthenticatedAdapter;
 
 	/** The authenticated user's Magento ID */
-	mageId?: string;
-
-	constructor(options?: Partial<EQPOptions>) {
-		this.environment = options?.environment ?? 'production';
-		this.autoRefreshToken = options?.autoRefresh ?? false;
-
-		this.client = Axios.create({
-			baseURL: `https://developer${this.environment === 'staging' ? '-stg' : ''}-api.magento.com/rest/v1`
-		});
+	get mageId(): string {
+		return this.adapter.mageId as string;
 	}
 
-	/**
-	 * Authenticate with the API. You can find the App ID and secret with the next link.
-	 * @see https://developer.magento.com/account/apikeys
-	 * @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token
-	 * @example eqp.authenticate('APP_ID', 'APP_SECRET')
-	 * @example eqp.authenticate('APP_ID', 'APP_SECRET', 3600)
-	 */
-	async authenticate(appId: string, appSecret: string, expiresIn?: number): Promise<void> {
-		this.mageId = undefined;
-
-		const {
-			data: { expires_in, mage_id, ust }
-		} = await this.client.post<{ mage_id: string; ust: string; expires_in: number }>(
-			'/app/session/token',
-			{ grant_type: 'session', expires_in: expiresIn ?? 7200 },
+	constructor(options: EQPOptions) {
+		this.adapter = new AuthenticatedAdapter(
+			new AxiosAdapter(
+				`https://developer${(options.environment ?? 'production') === 'staging' ? '-stg' : ''}-api.magento.com/rest/v1`
+			),
 			{
-				auth: {
-					password: appSecret,
-					username: appId
-				}
+				appId: options.appId,
+				appSecret: options.appSecret,
+				autoRefresh: options.autoRefresh ?? false,
+				tokenTTL: options.expiresIn
 			}
 		);
-
-		this.mageId = mage_id;
-
-		this.client.defaults.headers.common['Authorization'] = `Bearer ${ust}`;
-
-		if (this.autoRefreshToken) {
-			// Re-run this function 5 seconds before the token expires
-			setTimeout(() => this.authenticate(appId, appSecret), expires_in * 1000 - 5);
-		}
 	}
 
 	/**
@@ -72,12 +45,8 @@ export class EQP {
 	 */
 	getUser(summary: true): Promise<UserSummary>;
 
-	async getUser(summary = false): Promise<User | UserSummary> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/users/${this.mageId}${summary ? '?style=summary' : ''}`)).data;
+	getUser(summary = false): Promise<User | UserSummary> {
+		return this.adapter.get(`/users/|MAGE_ID|${summary ? '?style=summary' : ''}`);
 	}
 
 	/**
@@ -85,12 +54,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#update-profile-data
 	 * @example eqp.updateUser({ action: 'submit', personal_profile: { bio: 'Changed with netresearch/node-magento-eqp' } })
 	 */
-	async updateUser(data: Partial<User & { action?: 'submit' | 'draft' }>): Promise<User> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.put(`/users/${this.mageId}`, { action: 'submit', ...data })).data;
+	updateUser(data: Partial<User & { action?: 'submit' | 'draft' }>): Promise<User> {
+		return this.adapter.put(`/users/|MAGE_ID|`, { action: 'submit', ...data });
 	}
 
 	/**
@@ -100,19 +65,13 @@ export class EQP {
 	 * @example eqp.getKeys({ type: 'm2' })
 	 * @example eqp.getKeys({ label: 'testing' })
 	 */
-	async getKeys(options?: Partial<{ type: 'all' | 'm1' | 'm2'; label: string }>): Promise<{ m1: Magento1Key[]; m2: Magento2Key[] }> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (
-			await this.client.get(`/users/${this.mageId}/keys`, {
-				params: {
-					type: options?.type,
-					label: options?.label
-				}
-			})
-		).data;
+	getKeys(options?: Partial<{ type: 'all' | 'm1' | 'm2'; label: string }>): Promise<{ m1: Magento1Key[]; m2: Magento2Key[] }> {
+		return this.adapter.get(`/users/|MAGE_ID|/keys`, {
+			params: {
+				type: options?.type,
+				label: options?.label
+			}
+		});
 	}
 
 	// TODO: Provide typings
@@ -121,12 +80,8 @@ export class EQP {
 	 * Untested
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
 	 */
-	async getPageviewReports(): Promise<unknown> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/users/${this.mageId}/reports/pageviews`)).data;
+	getPageviewReports(): Promise<unknown> {
+		return this.adapter.get(`/users/|MAGE_ID|/reports/pageviews`);
 	}
 
 	// TODO: Provide typings
@@ -135,12 +90,8 @@ export class EQP {
 	 * Untested
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
 	 */
-	async getTotalReports(): Promise<unknown> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/users/${this.mageId}/reports/totals`)).data;
+	getTotalReports(): Promise<unknown> {
+		return this.adapter.get(`/users/|MAGE_ID|/reports/totals`);
 	}
 
 	// TODO: Provide typings
@@ -149,12 +100,8 @@ export class EQP {
 	 * Untested
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
 	 */
-	async getSalesReports(): Promise<unknown> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/users/${this.mageId}/reports/pageviews`)).data;
+	getSalesReports(): Promise<unknown> {
+		return this.adapter.get(`/users/|MAGE_ID|/reports/pageviews`);
 	}
 
 	// TODO: Provide typings
@@ -163,12 +110,8 @@ export class EQP {
 	 * Untested
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
 	 */
-	async getRefundReports(): Promise<unknown> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/users/${this.mageId}/reports/refunds`)).data;
+	getRefundReports(): Promise<unknown> {
+		return this.adapter.get(`/users/|MAGE_ID|/reports/refunds`);
 	}
 
 	/**
@@ -176,12 +119,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload
 	 * @example eqp.getFile('1');
 	 */
-	async getFile(uploadId: string, offset?: number, limit?: number): Promise<File> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/files/uploads/${uploadId}`, { params: { offset, limit } })).data;
+	getFile(uploadId: string, offset?: number, limit?: number): Promise<File> {
+		return this.adapter.get(`/files/uploads/${uploadId}`, { params: { offset, limit } });
 	}
 
 	/**
@@ -189,12 +128,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
 	 * @example eqp.getPackages()
 	 */
-	async getPackages(): Promise<Package[]> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get('/products/packages')).data;
+	getPackages(): Promise<Package[]> {
+		return this.adapter.get('/products/packages');
 	}
 
 	/**
@@ -202,12 +137,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
 	 * @example eqp.getPackageBySubmissionId('1')
 	 */
-	async getPackageBySubmissionId(submissionId: string): Promise<Package> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/products/packages/${submissionId}`)).data;
+	getPackageBySubmissionId(submissionId: string): Promise<Package> {
+		return this.adapter.get(`/products/packages/${submissionId}`);
 	}
 
 	/**
@@ -215,12 +146,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/packages.html#get-package-details
 	 * @example eqp.getPackageByItemId('1')
 	 */
-	async getPackageByItemId(itemId: string): Promise<Package> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/products/packages/items/${itemId}`)).data;
+	getPackageByItemId(itemId: string): Promise<Package> {
+		return this.adapter.get(`/products/packages/items/${itemId}`);
 	}
 
 	/**
@@ -229,12 +156,8 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/reports.html
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/users.html#user-reports
 	 */
-	async getReports(metricName?: string): Promise<unknown> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
-		return (await this.client.get(`/reports/metrics/${metricName ?? ''}`)).data;
+	getReports(metricName?: string): Promise<unknown> {
+		return this.adapter.get(`/reports/metrics/${metricName ?? ''}`);
 	}
 
 	/**
@@ -242,11 +165,7 @@ export class EQP {
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/callbacks.html#register-a-callback
 	 * @example eqp.registerCallback('Local test server', 'https://example.com/callback', 'magento', 'marketplace')
 	 */
-	async registerCallback(name: string, url: string, username: string, password: string): Promise<User> {
-		if (!this.mageId) {
-			throw new Error('Not authenticated.');
-		}
-
+	registerCallback(name: string, url: string, username: string, password: string): Promise<User> {
 		return this.updateUser({
 			api_callbacks: [{ name, url, username, password }]
 		});
@@ -258,7 +177,7 @@ export class EQP {
 	/** Parse a callback request body. */
 	parseCallback(event: MalwareScanCompleteEvent): Promise<{ file: File; submissions: Package[]; result: string }>;
 
-	async parseCallback(
+	parseCallback(
 		event: RawCallbackEvent
 	): Promise<
 		{ item?: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
@@ -266,5 +185,3 @@ export class EQP {
 		return parseCallback(this, event);
 	}
 }
-
-

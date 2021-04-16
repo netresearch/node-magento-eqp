@@ -1,5 +1,5 @@
 import { APICallback } from './callbacks';
-import { File } from './packages';
+import { File } from './common';
 
 export interface User {
 	mage_id: string;

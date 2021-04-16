@@ -1,6 +1,5 @@
 import { EQP } from '.';
-import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent } from './types';
-import { File, Package } from './types/packages';
+import { EQPStatusUpdateEvent, File, MalwareScanCompleteEvent, Package, RawCallbackEvent } from './types';
 
 export async function parseCallback(
 	eqp: EQP,
