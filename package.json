@@ -14,7 +14,7 @@
 		"build": "yarn build:lib && yarn build:docs",
 		"build:lib": "tsc",
 		"build:lib:dev": "tsc -w",
-		"build:docs": "typedoc --out docs src/index.ts",
+		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
 		"lint": "eslint src --ext .ts",
 		"prepack": "yarn build:lib"
 	},
