@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EQP | @netresearch/node-magento-eqp</title>
+	<title>FileService | @netresearch/node-magento-eqp</title>
 	<meta name="description" content="Documentation for @netresearch/node-magento-eqp">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">@netresearch/node-magento-eqp</a>
 				</li>
 				<li>
-					<a href="eqp.html">EQP</a>
+					<a href="fileservice.html">FileService</a>
 				</li>
 			</ul>
-			<h1>Class EQP</h1>
+			<h1>Class FileService</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">EQP</span>
+						<span class="target">FileService</span>
 					</li>
 				</ul>
 			</section>
@@ -80,25 +80,19 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="eqp.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="fileservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eqp.html#adapter" class="tsd-kind-icon">adapter</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#callbackservice" class="tsd-kind-icon">callback<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#fileservice" class="tsd-kind-icon">file<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#keyservice" class="tsd-kind-icon">key<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#packageservice" class="tsd-kind-icon">package<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#reportservice" class="tsd-kind-icon">report<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="eqp.html#userservice" class="tsd-kind-icon">user<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="fileservice.html#adapter" class="tsd-kind-icon">adapter</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eqp.html#mageid" class="tsd-kind-icon">mage<wbr>Id</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileservice.html#getfile" class="tsd-kind-icon">get<wbr>File</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,120 +104,77 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new EQP<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/eqpoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">EQPOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eqp.html" class="tsd-signature-type" data-tsd-kind="Class">EQP</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>File<wbr>Service<span class="tsd-signature-symbol">(</span>adapter<span class="tsd-signature-symbol">: </span><a href="authenticatedadapter.html" class="tsd-signature-type" data-tsd-kind="Class">AuthenticatedAdapter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="fileservice.html" class="tsd-signature-type" data-tsd-kind="Class">FileService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L29">index.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/services/FileService.ts#L4">services/FileService.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/eqpoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">EQPOptions</a></h5>
+									<h5>adapter: <a href="authenticatedadapter.html" class="tsd-signature-type" data-tsd-kind="Class">AuthenticatedAdapter</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="eqp.html" class="tsd-signature-type" data-tsd-kind="Class">EQP</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="fileservice.html" class="tsd-signature-type" data-tsd-kind="Class">FileService</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="adapter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> adapter</h3>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> adapter</h3>
 					<div class="tsd-signature tsd-kind-icon">adapter<span class="tsd-signature-symbol">:</span> <a href="authenticatedadapter.html" class="tsd-signature-type" data-tsd-kind="Class">AuthenticatedAdapter</a></div>
 					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L17">index.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="callbackservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> callback<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="callbackservice.html" class="tsd-signature-type" data-tsd-kind="Class">CallbackService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L22">index.ts:22</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="fileservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> file<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">file<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="fileservice.html" class="tsd-signature-type" data-tsd-kind="Class">FileService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L19">index.ts:19</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="keyservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> key<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">key<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="keyservice.html" class="tsd-signature-type" data-tsd-kind="Class">KeyService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L21">index.ts:21</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="packageservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> package<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">package<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="packageservice.html" class="tsd-signature-type" data-tsd-kind="Class">PackageService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L24">index.ts:24</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="reportservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> report<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">report<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="reportservice.html" class="tsd-signature-type" data-tsd-kind="Class">ReportService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L23">index.ts:23</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="userservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> user<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="userservice.html" class="tsd-signature-type" data-tsd-kind="Class">UserService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L20">index.ts:20</a></li>
-						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="mageid" class="tsd-anchor"></a>
-					<h3>mage<wbr>Id</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> mageId<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getfile" class="tsd-anchor"></a>
+					<h3>get<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>File<span class="tsd-signature-symbol">(</span>uploadId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, offset<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, limit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/file.html" class="tsd-signature-type" data-tsd-kind="Interface">File</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/index.ts#L27">index.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/6314385/src/services/FileService.ts#L12">services/FileService.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The authenticated user&#39;s Magento ID</p>
+									<p>Get a file by it&#39;s upload ID.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload">https://devdocs.magento.com/marketplace/eqp/v1/files.html#get-a-file-upload</a></p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>eqp.getFileService().getFile(&#39;1&#39;);</p>
+									</dd>
+								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uploadId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> offset: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> limit: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/file.html" class="tsd-signature-type" data-tsd-kind="Interface">File</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -251,45 +202,27 @@
 					<li class=" tsd-kind-class">
 						<a href="callbackservice.html" class="tsd-kind-icon">Callback<wbr>Service</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="eqp.html" class="tsd-kind-icon">EQP</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="eqp.html" class="tsd-kind-icon">EQP</a>
+						<a href="fileservice.html" class="tsd-kind-icon">File<wbr>Service</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="eqp.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="fileservice.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-								<a href="eqp.html#adapter" class="tsd-kind-icon">adapter</a>
+								<a href="fileservice.html#adapter" class="tsd-kind-icon">adapter</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#callbackservice" class="tsd-kind-icon">callback<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#fileservice" class="tsd-kind-icon">file<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#keyservice" class="tsd-kind-icon">key<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#packageservice" class="tsd-kind-icon">package<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#reportservice" class="tsd-kind-icon">report<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="eqp.html#userservice" class="tsd-kind-icon">user<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="eqp.html#mageid" class="tsd-kind-icon">mage<wbr>Id</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="fileservice.html#getfile" class="tsd-kind-icon">get<wbr>File</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="fileservice.html" class="tsd-kind-icon">File<wbr>Service</a>
-					</li>
 					<li class=" tsd-kind-class">
 						<a href="keyservice.html" class="tsd-kind-icon">Key<wbr>Service</a>
 					</li>
