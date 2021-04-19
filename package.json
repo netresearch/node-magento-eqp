@@ -17,8 +17,7 @@
 		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
 		"lint": "eslint src --ext .ts",
 		"prepack": "yarn build:lib",
-		"test": "jest",
-		"test-debug": "--inspect=0.0.0.0 jest"
+		"test": "jest"
 	},
 	"devDependencies": {
 		"@types/jest": "^26.0.22",
