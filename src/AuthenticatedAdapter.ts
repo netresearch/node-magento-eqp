@@ -12,7 +12,7 @@ export class AuthenticatedAdapter {
 		this.baseAdapter = baseAdapter;
 	}
 
-	protected replaceMageIdInURL(url: string) {
+	protected replaceMageIdInURL(url: string): string {
 		return url.replace(/\|MAGE_ID\|/, this.mageId as string);
 	}
 
