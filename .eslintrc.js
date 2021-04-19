@@ -2,11 +2,13 @@
 // eslint-disable-next-line no-undef
 module.exports = {
 	root: true,
-	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+	parser: "@typescript-eslint/parser",
+	plugins: ["@typescript-eslint", "editorconfig"],
+	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:editorconfig/all"],
 	rules: {
-		"eol-last": ["error", "always"],
-		"@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "no-public" }]
-	}
+		"@typescript-eslint/explicit-member-accessibility": [
+			"error",
+			{ accessibility: "no-public" },
+		],
+	},
 };
