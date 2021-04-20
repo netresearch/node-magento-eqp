@@ -4,7 +4,7 @@ import { FileService } from '../../src/services/FileService';
 import { File } from '../../src/types';
 import { AxiosMockAdapter } from '../MockAdapter';
 
-describe('Run tests for FileService', () => {
+describe('FileService', () => {
 	const mock = new AxiosMockAdapter('http://localhost');
 
 	const mockAuth = (mock: MockAdapter) => {
@@ -21,7 +21,7 @@ describe('Run tests for FileService', () => {
 
 	const subject = new FileService(authAdapter);
 
-	test('Test getFile with success', async () => {
+	test('getFile() with success', async () => {
 		mockAuth(mock.mockAdapter);
 
 		const sampleFile: File = {
@@ -52,7 +52,7 @@ describe('Run tests for FileService', () => {
 		expect(response).toMatchObject<File>(sampleFile);
 	});
 
-	test('Test getFile with error', async () => {
+	test('getFile() with error', async () => {
 		mockAuth(mock.mockAdapter);
 
 		try {
