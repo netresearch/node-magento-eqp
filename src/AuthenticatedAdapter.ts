@@ -13,9 +13,7 @@ export class AuthenticatedAdapter {
 			autoRefresh?: boolean;
 			tokenTTL?: number;
 		}
-	) {
-		this.baseAdapter = baseAdapter;
-	}
+	) {}
 
 	protected replaceMageIdInURL(url: string): string {
 		return url.replace(/\|MAGE_ID\|/, this.mageId as string);
