@@ -1,12 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
-import { AxiosAdapter } from './Adapters';
+import { Adapter } from './types/adapters';
 
 export class AuthenticatedAdapter {
 	protected authenticated = false;
 	mageId?: string;
 
 	constructor(
-		protected readonly baseAdapter: AxiosAdapter,
+		protected readonly baseAdapter: Adapter,
 		protected readonly credentials: { appSecret: string; appId: string; autoRefresh?: boolean; tokenTTL?: number }
 	) {
 		this.baseAdapter = baseAdapter;
