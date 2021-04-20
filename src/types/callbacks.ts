@@ -1,5 +1,5 @@
-import { File } from "./common";
-import { Package } from "./packages";
+import { File } from './common';
+import { Package } from './packages';
 
 export interface RawCallbackEvent {
 	callback_event: string;

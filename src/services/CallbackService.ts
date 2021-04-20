@@ -1,6 +1,6 @@
 import { EQP } from '..';
 import { AuthenticatedAdapter } from '../AuthenticatedAdapter';
-import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent, User, EQPStatusUpdateInfo, MalwareScanCompleteInfo  } from '../types';
+import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent, User, EQPStatusUpdateInfo, MalwareScanCompleteInfo } from '../types';
 
 export class CallbackService {
 	constructor(protected readonly eqp: EQP, protected readonly adapter: AuthenticatedAdapter) {}
@@ -20,9 +20,7 @@ export class CallbackService {
 	/** Parse a callback request body. */
 	parseCallback(event: MalwareScanCompleteEvent): Promise<MalwareScanCompleteInfo>;
 
-	async parseCallback(
-		event: RawCallbackEvent
-	): Promise<EQPStatusUpdateInfo | MalwareScanCompleteInfo> {
+	async parseCallback(event: RawCallbackEvent): Promise<EQPStatusUpdateInfo | MalwareScanCompleteInfo> {
 		switch (event.callback_event) {
 			case 'eqp_status_update': {
 				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;

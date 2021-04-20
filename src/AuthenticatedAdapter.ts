@@ -7,7 +7,12 @@ export class AuthenticatedAdapter {
 
 	constructor(
 		protected readonly baseAdapter: Adapter,
-		protected readonly credentials: { appSecret: string; appId: string; autoRefresh?: boolean; tokenTTL?: number }
+		protected readonly credentials: {
+			appSecret: string;
+			appId: string;
+			autoRefresh?: boolean;
+			tokenTTL?: number;
+		}
 	) {
 		this.baseAdapter = baseAdapter;
 	}
@@ -60,7 +65,11 @@ export class AuthenticatedAdapter {
 
 		this.mageId = undefined;
 
-		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{ mage_id: string; ust: string; expires_in: number }>(
+		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{
+			mage_id: string;
+			ust: string;
+			expires_in: number;
+		}>(
 			'/app/session/token',
 			{ grant_type: 'session', expires_in: this.credentials.tokenTTL ?? 7200 },
 			{
