@@ -4,7 +4,7 @@ import { KeyService } from '../../src/services/KeyService';
 import { Magento1Key, Magento2Key } from '../../src/types';
 import { AxiosMockAdapter } from '../MockAdapter';
 
-describe('FileService', () => {
+describe('KeyService', () => {
 	const mock = new AxiosMockAdapter('http://localhost');
 
 	const mockAuth = (mock: MockAdapter) => {
@@ -56,10 +56,8 @@ describe('FileService', () => {
 
 		const response = await subject.getKeys({ type: 'm1' });
 
-		console.log(response);
-
 		expect(response).toBeDefined();
-		expect(response.m1).toEqual(expect.arrayContaining(response.m1));
+		expect(response.m1).toEqual(expect.arrayContaining([sampleM1Key]));
 	});
 
 	test('getKeys() with error', async () => {
