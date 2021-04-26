@@ -23,6 +23,24 @@ describe('AuthenticatedAdapter', () => {
 		appId: 'id'
 	});
 
+	test('Base adapter is correct', async () => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		expect(subject.baseAdapter).toHaveProperty('get');
+
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		expect(subject.baseAdapter).toHaveProperty('post');
+
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		expect(subject.baseAdapter).toHaveProperty('put');
+
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		expect(subject.baseAdapter).toHaveProperty('delete');
+	});
+
 	test('GET requests', async () => {
 		mockAuth(mock.mockAdapter);
 
