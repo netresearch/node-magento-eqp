@@ -38,3 +38,19 @@ jobs:
 
       - name: 🔎 Lint
         run: yarn lint
+
+
+  test:
+    name: ⚠️ Test
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: ⚡ Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: ⚠️ Test
+        run: yarn test
