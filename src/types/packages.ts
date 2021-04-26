@@ -1,3 +1,5 @@
+import { File } from './common';
+
 export interface Package {
 	item_id: string;
 	submission_id: string;
