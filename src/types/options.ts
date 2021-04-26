@@ -1,3 +1,5 @@
+import { Adapter } from './adapters';
+
 export type Environment = 'staging' | 'production';
 
 export interface EQPOptions {
@@ -7,4 +9,6 @@ export interface EQPOptions {
 	appId: string;
 	appSecret: string;
 	expiresIn?: number;
+
+	adapter?: Adapter;
 }
