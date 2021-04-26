@@ -24,8 +24,8 @@ export class EQP {
 	readonly packageService: PackageService;
 
 	/** The authenticated user's Magento ID */
-	get mageId(): string {
-		return this.adapter.mageId as string;
+	get mageId(): string | undefined {
+		return this.adapter.mageId;
 	}
 
 	constructor(options: EQPOptions) {
