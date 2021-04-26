@@ -21,7 +21,7 @@ describe('UserService', () => {
 
 	const subject = new UserService(authAdapter);
 
-	test('getUser() with success', async () => {
+	test('getUser() full', async () => {
 		mockAuth(mock.mockAdapter);
 
 		mock.mockAdapter
@@ -40,7 +40,7 @@ describe('UserService', () => {
 		expect(response).toMatchObject(sampleUser);
 	});
 
-	test('getUser() with success', async () => {
+	test('getUser() summary', async () => {
 		mockAuth(mock.mockAdapter);
 
 		mock.mockAdapter
