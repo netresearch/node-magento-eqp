@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter/types';
 import { AuthenticatedAdapter } from '../../src/AuthenticatedAdapter';
 import { KeyService } from '../../src/services/KeyService';
-import { Magento1Key, Magento2Key } from '../../src/types';
 import { AxiosMockAdapter } from '../MockAdapter';
+import { sampleMagento1Key, sampleMagento2Key } from '../mocks';
 
 describe('KeyService', () => {
 	const mock = new AxiosMockAdapter('http://localhost');
@@ -24,18 +24,6 @@ describe('KeyService', () => {
 	test('getKeys() with success', async () => {
 		mockAuth(mock.mockAdapter);
 
-		const sampleM1Key: Magento1Key = {
-			product_key: '',
-			product_name: 'Magento 1'
-		};
-
-		const sampleM2Key: Magento2Key = {
-			is_enabled: true,
-			label: 'Magento 2 Sample key',
-			password_key: 'blah',
-			user_key: 'blah'
-		};
-
 		mock.mockAdapter
 			.onGet(
 				'/users/MAGE_ID/keys',
@@ -46,18 +34,18 @@ describe('KeyService', () => {
 			)
 			.reply((config) => {
 				if (config.params.type === 'm1') {
-					return [200, { m1: [sampleM1Key] }];
+					return [200, { m1: [sampleMagento1Key] }];
 				} else if (config.params.type === 'm2') {
-					return [200, { m1: [sampleM2Key] }];
+					return [200, { m1: [sampleMagento2Key] }];
 				} else {
-					return [200, { m1: [sampleM1Key], m2: [sampleM2Key] }];
+					return [200, { m1: [sampleMagento1Key], m2: [sampleMagento2Key] }];
 				}
 			});
 
 		const response = await subject.getKeys({ type: 'm1' });
 
 		expect(response).toBeDefined();
-		expect(response.m1).toEqual(expect.arrayContaining([sampleM1Key]));
+		expect(response.m1).toEqual(expect.arrayContaining([sampleMagento1Key]));
 	});
 
 	test('getKeys() with error', async () => {

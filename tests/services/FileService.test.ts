@@ -3,6 +3,7 @@ import { AuthenticatedAdapter } from '../../src/AuthenticatedAdapter';
 import { FileService } from '../../src/services/FileService';
 import { File } from '../../src/types';
 import { AxiosMockAdapter } from '../MockAdapter';
+import { sampleFile } from '../mocks';
 
 describe('FileService', () => {
 	const mock = new AxiosMockAdapter('http://localhost');
@@ -23,18 +24,6 @@ describe('FileService', () => {
 
 	test('getFile() with success', async () => {
 		mockAuth(mock.mockAdapter);
-
-		const sampleFile: File = {
-			file_upload_id: 'String',
-			filename: 'String',
-			content_type: 'String',
-			size: 41231,
-			malware_status: 'String',
-			file_hash: 'String',
-			submission_ids: ['1234', '456'],
-			is_profile_image: true,
-			url: 'String'
-		};
 
 		mock.mockAdapter
 			.onGet(
