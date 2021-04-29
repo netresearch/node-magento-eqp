@@ -1,6 +1,6 @@
 {
 	"name": "@netresearch/node-magento-eqp",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Simple API wrapper around the Magento Marketplace EQP API",
 	"main": "dist/index.js",
 	"repository": {
