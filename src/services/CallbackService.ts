@@ -22,9 +22,7 @@ export class CallbackService {
 
 	async parseCallback(
 		event: RawCallbackEvent
-	): Promise<
-		{ item?: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }
-	> {
+	): Promise<{ item?: Package; submission: Package; status: string; flow: string } | { file: File; submissions: Package[]; result: string }> {
 		switch (event.callback_event) {
 			case 'eqp_status_update': {
 				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;
@@ -32,7 +30,7 @@ export class CallbackService {
 				return {
 					item: await this.eqp.packageService.getPackageByItemId(updateInfo.item_id),
 					submission: await this.eqp.packageService.getPackageBySubmissionId(updateInfo.submission_id),
-					status: updateInfo.eqp_status,
+					status: updateInfo.eqp_state,
 					flow: updateInfo.eqp_flow
 				};
 			}
