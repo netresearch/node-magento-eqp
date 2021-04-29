@@ -32,7 +32,7 @@ export class CallbackService {
 				return {
 					item: await this.eqp.packageService.getPackageByItemId(updateInfo.item_id),
 					submission: await this.eqp.packageService.getPackageBySubmissionId(updateInfo.submission_id),
-					status: updateInfo.current_status,
+					status: updateInfo.eqp_status,
 					flow: updateInfo.eqp_flow
 				};
 			}

@@ -17,7 +17,7 @@ export interface EQPStatusUpdateEvent extends RawCallbackEvent {
 		submission_id: string;
 		item_id: string;
 		eqp_flow: string;
-		current_status: string;
+		eqp_status: string;
 	};
 }
 
