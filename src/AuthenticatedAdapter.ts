@@ -77,7 +77,7 @@ export class AuthenticatedAdapter {
 
 		if (this.credentials.autoRefresh) {
 			// Re-run this function 5 seconds before the token expires
-			setTimeout(() => this.authenticate(), expires_in * 1000 - 5);
+			setTimeout(() => this.authenticate(), (expires_in - 5) * 1000);
 		}
 
 		this.authenticated = true;
