@@ -180,7 +180,7 @@ export const sampleMalwareScanCompletedEvent: MalwareScanCompleteEvent = {
 export const sampleEQPStatusUpdateEvent: EQPStatusUpdateEvent = {
 	callback_event: 'eqp_status_update',
 	update_info: {
-		current_status: 'pass',
+		eqp_state: 'pass',
 		eqp_flow: '',
 		item_id: '0',
 		submission_id: '0'
