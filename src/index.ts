@@ -24,15 +24,14 @@ export class EQP {
 	readonly packageService: PackageService;
 
 	/** The authenticated user's Magento ID */
-	get mageId(): string {
-		return this.adapter.mageId as string;
+	get mageId(): string | undefined {
+		return this.adapter.mageId;
 	}
 
 	constructor(options: EQPOptions) {
 		this.adapter = new AuthenticatedAdapter(
-			new AxiosAdapter(
-				`https://developer${(options.environment ?? 'production') === 'staging' ? '-stg' : ''}-api.magento.com/rest/v1`
-			),
+			options.adapter ??
+				new AxiosAdapter(`https://developer${(options.environment ?? 'production') === 'staging' ? '-stg' : ''}-api.magento.com/rest/v1`),
 			{
 				appId: options.appId,
 				appSecret: options.appSecret,

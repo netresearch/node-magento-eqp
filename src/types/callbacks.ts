@@ -1,3 +1,6 @@
+import { File } from './common';
+import { Package } from './packages';
+
 export interface RawCallbackEvent {
 	callback_event: string;
 	update_info: unknown;
@@ -26,4 +29,16 @@ export interface APICallback {
 	url: string;
 	username: string;
 	password: string;
+}
+
+export interface EQPStatusUpdateInfo {
+	item?: Package;
+	submission: Package;
+	status: string;
+	flow: string;
+}
+export interface MalwareScanCompleteInfo {
+	file: File;
+	submissions: Package[];
+	result: string;
 }

@@ -8,7 +8,7 @@ export class AxiosAdapter implements Adapter {
 		this.client = axios.create({ baseURL });
 	}
 
-	setHeader(header: string, value: string) {
+	setHeader(header: string, value: string): void {
 		this.client.defaults.headers.common[header] = value;
 	}
 

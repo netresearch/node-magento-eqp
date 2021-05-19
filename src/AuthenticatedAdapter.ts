@@ -1,18 +1,21 @@
 import { AxiosRequestConfig } from 'axios';
-import { AxiosAdapter } from './Adapters';
+import { Adapter } from './types/adapters';
 
 export class AuthenticatedAdapter {
 	protected authenticated = false;
 	mageId?: string;
 
 	constructor(
-		protected readonly baseAdapter: AxiosAdapter,
-		protected readonly credentials: { appSecret: string; appId: string; autoRefresh?: boolean; tokenTTL?: number }
-	) {
-		this.baseAdapter = baseAdapter;
-	}
+		protected readonly baseAdapter: Adapter,
+		protected readonly credentials: {
+			appSecret: string;
+			appId: string;
+			autoRefresh?: boolean;
+			tokenTTL?: number;
+		}
+	) {}
 
-	protected replaceMageIdInURL(url: string) {
+	protected replaceMageIdInURL(url: string): string {
 		return url.replace(/\|MAGE_ID\|/, this.mageId as string);
 	}
 
@@ -60,7 +63,11 @@ export class AuthenticatedAdapter {
 
 		this.mageId = undefined;
 
-		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{ mage_id: string; ust: string; expires_in: number }>(
+		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{
+			mage_id: string;
+			ust: string;
+			expires_in: number;
+		}>(
 			'/app/session/token',
 			{ grant_type: 'session', expires_in: this.credentials.tokenTTL ?? 7200 },
 			{

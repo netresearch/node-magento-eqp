@@ -3,6 +3,15 @@
 module.exports = {
 	root: true,
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended']
+	plugins: ['@typescript-eslint', 'editorconfig', 'prettier'],
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:editorconfig/all',
+		'prettier'
+	],
+	rules: {
+		'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
+		'prettier/prettier': 'error'
+	}
 };

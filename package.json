@@ -15,14 +15,24 @@
 		"build:lib": "tsc",
 		"build:lib:dev": "tsc -w",
 		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
-		"lint": "eslint src --ext .ts",
-		"prepack": "yarn build:lib"
+		"lint": "eslint src tests --ext .ts",
+		"prepack": "yarn build:lib",
+		"test": "jest"
 	},
 	"devDependencies": {
+		"@types/jest": "^26.0.22",
 		"@types/node": "8",
 		"@typescript-eslint/eslint-plugin": "^4.21.0",
 		"@typescript-eslint/parser": "^4.21.0",
+		"axios-mock-adapter": "^1.19.0",
 		"eslint": "^7.23.0",
+		"eslint-config-prettier": "^8.2.0",
+		"eslint-plugin-editorconfig": "^3.0.2",
+		"eslint-plugin-prettier": "^3.4.0",
+		"jest": "^26.6.3",
+		"prettier": "^2.2.1",
+		"ts-jest": "^26.5.5",
+		"ts-node": "^9.1.1",
 		"typedoc": "^0.20.35",
 		"typescript": "^4.2.3"
 	},
