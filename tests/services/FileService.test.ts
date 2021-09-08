@@ -60,7 +60,7 @@ describe('FileService', () => {
 
 			await subject.getFile('someId');
 		} catch (e) {
-			expect(e.toString()).toMatch('Error: Request failed with status code 400');
+			expect((e as Error).toString()).toMatch('Error: Request failed with status code 400');
 		}
 	});
 });
