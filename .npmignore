@@ -1,5 +1,7 @@
 src
+tests
 docs
 .*
 *.md
 tsconfig.json
+jest.config.js
