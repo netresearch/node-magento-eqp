@@ -53,14 +53,8 @@ export class AuthenticatedAdapter {
 	 * Authenticate with the API. You can find the App ID and secret with the next link.
 	 * @see https://developer.magento.com/account/apikeys
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token
-	 * @example eqp.authenticate('APP_ID', 'APP_SECRET')
-	 * @example eqp.authenticate('APP_ID', 'APP_SECRET', 3600)
 	 */
 	protected async authenticate(): Promise<void> {
-		if (this.authenticated) {
-			return;
-		}
-
 		this.mageId = undefined;
 
 		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{
@@ -84,7 +78,11 @@ export class AuthenticatedAdapter {
 
 		if (this.credentials.autoRefresh) {
 			// Re-run this function 5 seconds before the token expires
-			setTimeout(() => this.authenticate(), (expires_in - 5) * 1000);
+			setTimeout(async () => {
+				this.authenticated = false;
+
+				await this.authenticate();
+			}, expires_in * 1000 - 5);
 		}
 
 		this.authenticated = true;
