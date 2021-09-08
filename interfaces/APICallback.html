@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MalwareScanCompleteInfo | @netresearch/node-magento-eqp</title>
+	<title>APICallback | @netresearch/node-magento-eqp</title>
 	<meta name="description" content="Documentation for @netresearch/node-magento-eqp">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">@netresearch/node-magento-eqp</a>
 				</li>
 				<li>
-					<a href="malwarescancompleteinfo.html">MalwareScanCompleteInfo</a>
+					<a href="APICallback.html">APICallback</a>
 				</li>
 			</ul>
-			<h1>Interface MalwareScanCompleteInfo</h1>
+			<h1>Interface APICallback</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MalwareScanCompleteInfo</span>
+						<span class="target">APICallback</span>
 					</li>
 				</ul>
 			</section>
@@ -80,9 +80,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="malwarescancompleteinfo.html#file" class="tsd-kind-icon">file</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="malwarescancompleteinfo.html#result" class="tsd-kind-icon">result</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="malwarescancompleteinfo.html#submissions" class="tsd-kind-icon">submissions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="APICallback.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="APICallback.html#password" class="tsd-kind-icon">password</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="APICallback.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="APICallback.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,32 +92,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="file" class="tsd-anchor"></a>
-					<h3>file</h3>
-					<div class="tsd-signature tsd-kind-icon">file<span class="tsd-signature-symbol">:</span> <a href="file.html" class="tsd-signature-type" data-tsd-kind="Interface">File</a></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/bba9ef5/src/types/callbacks.ts#L41">types/callbacks.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/c4bd1f7/src/types/callbacks.ts#L28">types/callbacks.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="result" class="tsd-anchor"></a>
-					<h3>result</h3>
-					<div class="tsd-signature tsd-kind-icon">result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="password" class="tsd-anchor"></a>
+					<h3>password</h3>
+					<div class="tsd-signature tsd-kind-icon">password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/bba9ef5/src/types/callbacks.ts#L43">types/callbacks.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/c4bd1f7/src/types/callbacks.ts#L31">types/callbacks.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="submissions" class="tsd-anchor"></a>
-					<h3>submissions</h3>
-					<div class="tsd-signature tsd-kind-icon">submissions<span class="tsd-signature-symbol">:</span> <a href="package.html" class="tsd-signature-type" data-tsd-kind="Interface">Package</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/bba9ef5/src/types/callbacks.ts#L42">types/callbacks.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/c4bd1f7/src/types/callbacks.ts#L29">types/callbacks.ts:29</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="username" class="tsd-anchor"></a>
+					<h3>username</h3>
+					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/netresearch/node-magento-eqp/blob/c4bd1f7/src/types/callbacks.ts#L30">types/callbacks.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -136,88 +147,91 @@
 						<a href="../modules.html#default" class="tsd-kind-icon">default</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/authenticatedadapter.html" class="tsd-kind-icon">Authenticated<wbr>Adapter</a>
+						<a href="../classes/AuthenticatedAdapter.html" class="tsd-kind-icon">Authenticated<wbr>Adapter</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/axiosadapter.html" class="tsd-kind-icon">Axios<wbr>Adapter</a>
+						<a href="../classes/AxiosAdapter.html" class="tsd-kind-icon">Axios<wbr>Adapter</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/callbackservice.html" class="tsd-kind-icon">Callback<wbr>Service</a>
+						<a href="../classes/CallbackService.html" class="tsd-kind-icon">Callback<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/eqp.html" class="tsd-kind-icon">EQP</a>
+						<a href="../classes/EQP.html" class="tsd-kind-icon">EQP</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/fileservice.html" class="tsd-kind-icon">File<wbr>Service</a>
+						<a href="../classes/FileService.html" class="tsd-kind-icon">File<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/keyservice.html" class="tsd-kind-icon">Key<wbr>Service</a>
+						<a href="../classes/KeyService.html" class="tsd-kind-icon">Key<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/packageservice.html" class="tsd-kind-icon">Package<wbr>Service</a>
+						<a href="../classes/PackageService.html" class="tsd-kind-icon">Package<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/reportservice.html" class="tsd-kind-icon">Report<wbr>Service</a>
+						<a href="../classes/ReportService.html" class="tsd-kind-icon">Report<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/userservice.html" class="tsd-kind-icon">User<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="apicallback.html" class="tsd-kind-icon">APICallback</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="eqpoptions.html" class="tsd-kind-icon">EQPOptions</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="eqpstatusupdateevent.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="eqpstatusupdateinfo.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="file.html" class="tsd-kind-icon">File</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="magento1key.html" class="tsd-kind-icon">Magento1<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="magento2key.html" class="tsd-kind-icon">Magento2<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="malwarescancompleteevent.html" class="tsd-kind-icon">Malware<wbr>Scan<wbr>Complete<wbr>Event</a>
+						<a href="../classes/UserService.html" class="tsd-kind-icon">User<wbr>Service</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="malwarescancompleteinfo.html" class="tsd-kind-icon">Malware<wbr>Scan<wbr>Complete<wbr>Info</a>
+						<a href="APICallback.html" class="tsd-kind-icon">APICallback</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="malwarescancompleteinfo.html#file" class="tsd-kind-icon">file</a>
+								<a href="APICallback.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="malwarescancompleteinfo.html#result" class="tsd-kind-icon">result</a>
+								<a href="APICallback.html#password" class="tsd-kind-icon">password</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="malwarescancompleteinfo.html#submissions" class="tsd-kind-icon">submissions</a>
+								<a href="APICallback.html#url" class="tsd-kind-icon">url</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="APICallback.html#username" class="tsd-kind-icon">username</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface">
-						<a href="package.html" class="tsd-kind-icon">Package</a>
+						<a href="EQPOptions.html" class="tsd-kind-icon">EQPOptions</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="rawcallbackevent.html" class="tsd-kind-icon">Raw<wbr>Callback<wbr>Event</a>
+						<a href="EQPStatusUpdateEvent.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="user.html" class="tsd-kind-icon">User</a>
+						<a href="EQPStatusUpdateInfo.html" class="tsd-kind-icon">EQPStatus<wbr>Update<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="usersummary.html" class="tsd-kind-icon">User<wbr>Summary</a>
+						<a href="File.html" class="tsd-kind-icon">File</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Magento1Key.html" class="tsd-kind-icon">Magento1<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Magento2Key.html" class="tsd-kind-icon">Magento2<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="MalwareScanCompleteEvent.html" class="tsd-kind-icon">Malware<wbr>Scan<wbr>Complete<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="MalwareScanCompleteInfo.html" class="tsd-kind-icon">Malware<wbr>Scan<wbr>Complete<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Package.html" class="tsd-kind-icon">Package</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RawCallbackEvent.html" class="tsd-kind-icon">Raw<wbr>Callback<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="User.html" class="tsd-kind-icon">User</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="UserSummary.html" class="tsd-kind-icon">User<wbr>Summary</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../modules.html#environment" class="tsd-kind-icon">Environment</a>
+						<a href="../modules.html#Environment" class="tsd-kind-icon">Environment</a>
 					</li>
 				</ul>
 			</nav>
