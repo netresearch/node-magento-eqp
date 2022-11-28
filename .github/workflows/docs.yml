@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  build:
     name: 📦☁️ Release
     runs-on: ubuntu-22.04
     steps:
