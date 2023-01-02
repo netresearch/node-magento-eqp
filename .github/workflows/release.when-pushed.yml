@@ -12,11 +12,11 @@ jobs:
     name: 📦☁️ Release
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 16
           registry-url: 'https://registry.npmjs.org'
           scope: '@netresearch'
 
@@ -27,7 +27,7 @@ jobs:
         run: yarn pack --filename=package.tgz
 
       - name: 🚀 Upload package as an artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: package.tgz

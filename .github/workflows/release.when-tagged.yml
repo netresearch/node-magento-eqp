@@ -13,11 +13,11 @@ jobs:
     name: 📦☁️ Release
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 16
           registry-url: 'https://registry.npmjs.org'
           scope: '@netresearch'
 
@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 16
           registry-url: 'https://npm.pkg.github.com'
           scope: '@netresearch'
 
