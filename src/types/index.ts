@@ -1,3 +1,4 @@
+export * from './adapters';
 export * from './callbacks';
 export * from './common';
 export * from './options';
