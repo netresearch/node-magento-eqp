@@ -20,7 +20,7 @@
 		"test": "jest"
 	},
 	"devDependencies": {
-		"@types/jest": "^29.2.5",
+		"@types/jest": "^29.2.6",
 		"@types/node": "^8.10.66",
 		"@typescript-eslint/eslint-plugin": "^5.48.0",
 		"@typescript-eslint/parser": "^5.48.1",
