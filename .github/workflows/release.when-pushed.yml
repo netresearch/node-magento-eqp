@@ -1,6 +1,6 @@
 # https://gist.github.com/paullessing/d706c8af51faca68c6ba0f9f9bae4e4b#file-release-when-pushed-yml
 
-name: 📦☁️ Release
+name: 📦☁️ Publish artifact
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   release:
-    name: 📦☁️ Release
+    name: 📦☁️ Publish artifact
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3

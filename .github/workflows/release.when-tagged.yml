@@ -44,24 +44,20 @@ jobs:
         run: yarn pack --filename=package.tgz
 
       - name: ➕ Create release
-        uses: actions/create-release@v1
+        uses: elgohr/Github-Release-Action@v4
         id: create_release
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          title: MyReleaseMessage
+
+      - name: ➕ Create release
+        uses: ncipollo/release-action@v1
+        id: create_release
+        with:
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-
-      - name: 🚀 Upload package to GitHub Releases
-        if: steps.update_tag.outputs.tagname
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./package.tgz
-          asset_name: package.tgz
-          asset_content_type: application/tgz
+          artifacts: package.tgz
+          makeLatest: true
