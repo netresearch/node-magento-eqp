@@ -1,6 +1,6 @@
 import { EQP } from '..';
 import { AuthenticatedAdapter } from '../AuthenticatedAdapter';
-import { EQPStatusUpdateEvent, MalwareScanCompleteEvent, RawCallbackEvent, User, EQPStatusUpdateInfo, MalwareScanCompleteInfo } from '../types';
+import { EQPStatusUpdateEvent, EQPStatusUpdateInfo, MalwareScanCompleteEvent, MalwareScanCompleteInfo, RawCallbackEvent, User } from '../types';
 
 export class CallbackService {
 	constructor(protected readonly eqp: EQP, protected readonly adapter: AuthenticatedAdapter) {}
@@ -26,7 +26,6 @@ export class CallbackService {
 				const { update_info: updateInfo } = event as EQPStatusUpdateEvent;
 
 				return {
-					item: await this.eqp.packageService.getPackageByItemId(updateInfo.item_id),
 					submission: await this.eqp.packageService.getPackageBySubmissionId(updateInfo.submission_id),
 					status: updateInfo.eqp_state,
 					flow: updateInfo.eqp_flow

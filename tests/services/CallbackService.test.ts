@@ -96,7 +96,6 @@ describe('CallbackService', () => {
 
 		expect(response).toBeDefined();
 		expect(response.flow).toEqual('');
-		expect(response.item).toMatchObject(samplePackage);
 		expect(response.submission).toMatchObject(samplePackage);
 	});
 

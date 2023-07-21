@@ -32,7 +32,6 @@ export interface APICallback {
 }
 
 export interface EQPStatusUpdateInfo {
-	item?: Package;
 	submission: Package;
 	status: string;
 	flow: string;
