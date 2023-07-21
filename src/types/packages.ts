@@ -24,33 +24,33 @@ export interface Package {
 	requested_launch_date: string;
 	original_launch_date?: string;
 	latest_launch_date: string;
-	max_version_launched: any[];
+	max_version_launched: unknown[];
 	documentation_artifacts: {
-		user: any[];
-		installation: any[];
-		reference: any[];
+		user: unknown[];
+		installation: unknown[];
+		reference: unknown[];
 	};
-	shared_packages: any[];
+	shared_packages: unknown[];
 	categories: string[];
 	media_artifacts: {
-		icon_image: any[];
+		icon_image: unknown[];
 		gallery_images: Omit<File, 'is_profile_image' | 'submission_ids'>[];
-		video_urls: any[];
+		video_urls: unknown[];
 	};
-	browsers: any[];
-	browser_os_compatibility: any[];
+	browsers: unknown[];
+	browser_os_compatibility: unknown[];
 	prices: {
 		currency_code: string;
 		edition: string;
 		price: number;
 	}[];
-	support_tiers: any[];
+	support_tiers: unknown[];
 	license_type: string;
 	custom_license_name: string;
 	custom_license_url: string;
 	external_services: {
 		is_saas: boolean;
-		items: any[];
+		items: unknown[];
 	};
 	marketing_options: {
 		released_with_setup_scripts: boolean;
@@ -72,9 +72,9 @@ export interface Package {
 		marketing: string;
 	};
 	actions_now_available: {
-		overall: any[];
-		technical: any[];
-		marketing: any[];
+		overall: unknown[];
+		technical: unknown[];
+		marketing: unknown[];
 	};
 	submission_counts: {
 		technical_submission_count: number;

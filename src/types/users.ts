@@ -40,8 +40,8 @@ export interface User {
 		last_logged_in: string;
 		created_at: string;
 		modified_at: string;
-		social_media_info: any[];
-		addresses: any[];
+		social_media_info: unknown[];
+		addresses: unknown[];
 	};
 	company_profile: {
 		name: string;
