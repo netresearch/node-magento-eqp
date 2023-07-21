@@ -44,14 +44,6 @@ jobs:
         run: yarn pack --filename=package.tgz
 
       - name: ➕ Create release
-        uses: elgohr/Github-Release-Action@v4
-        id: create_release
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          title: MyReleaseMessage
-
-      - name: ➕ Create release
         uses: ncipollo/release-action@v1
         id: create_release
         with:
