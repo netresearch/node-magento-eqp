@@ -39,17 +39,3 @@ jobs:
         run: yarn publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 📦 Package
-        run: yarn pack --filename=package.tgz
-
-      - name: ➕ Create release
-        uses: ncipollo/release-action@v1
-        id: create_release
-        with:
-          tag: ${{ github.ref }}
-          name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-          artifacts: package.tgz
-          makeLatest: true
