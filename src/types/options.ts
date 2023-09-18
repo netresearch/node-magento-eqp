@@ -1,6 +1,6 @@
 import { Adapter } from './adapters';
 
-export type Environment = 'staging' | 'production';
+export type Environment = 'sandbox' | 'production';
 
 export interface EQPOptions {
 	environment?: Environment;
