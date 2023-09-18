@@ -8,7 +8,7 @@
 		"url": "https://github.com/netresearch/node-magento-eqp.git"
 	},
 	"types": "dist/index.d.ts",
-	"author": "TheDevMinerTV <tobigames200@gmail.com>",
+	"author": "DevMiner <devminer@devminer.xyz>",
 	"license": "MIT",
 	"scripts": {
 		"build": "yarn build:lib && yarn build:docs",
