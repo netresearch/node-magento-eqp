@@ -22,20 +22,10 @@ describe('EQP', () => {
 	test('get mageId', async () => {
 		mockAuth(mock.mockAdapter);
 
-		mock.mockAdapter
-			.onGet(
-				'/users/MAGE_ID',
-				undefined,
-				expect.objectContaining({
-					Authorization: expect.stringMatching('Bearer TOKEN')
-				})
-			)
-			.reply(200, sampleUser);
-
 		// Already tested in tests/services/UserService.test.ts
-		await subject.userService.getUser(false);
+		const mageId = await subject.getMageId();
 
-		expect(subject.mageId).toBeDefined();
-		expect(subject.mageId).toEqual(sampleUser.mage_id);
+		expect(mageId).toBeDefined();
+		expect(mageId).toEqual(sampleUser.mage_id);
 	});
 });

@@ -1,52 +1,46 @@
 import { AxiosRequestConfig } from 'axios';
 import { Adapter } from './types/adapters';
 
-export class AuthenticatedAdapter {
-	protected authenticated = false;
-	mageId?: string;
+const replaceMageIdInURL = (url: string, mageId: string) => url.replace(/\|MAGE_ID\|/, mageId);
+const addHeaders = (config: AxiosRequestConfig | undefined, headers: Record<string, string>) => ({ ...config, headers: { ...config?.headers, ...headers } });
 
+export class AuthenticatedAdapter {
 	constructor(
 		protected readonly baseAdapter: Adapter,
 		protected readonly credentials: {
 			appSecret: string;
 			appId: string;
-			autoRefresh?: boolean;
-			tokenTTL?: number;
 		}
-	) {}
-
-	protected replaceMageIdInURL(url: string): string {
-		return url.replace(/\|MAGE_ID\|/, this.mageId as string);
-	}
+	) { }
 
 	async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-		await this.authenticate();
+		const [mageId, headers] = await this.authenticate();
 
-		return this.baseAdapter.get(this.replaceMageIdInURL(url), config);
+		return this.baseAdapter.get(replaceMageIdInURL(url, mageId), addHeaders(config, headers));
 	}
 
 	async post<T>(url: string, body: unknown, config?: AxiosRequestConfig): Promise<T> {
-		await this.authenticate();
+		const [mageId, headers] = await this.authenticate();
 
-		return this.baseAdapter.post(this.replaceMageIdInURL(url), body, config);
+		return this.baseAdapter.post(replaceMageIdInURL(url, mageId), body, addHeaders(config, headers));
 	}
 
 	async put<T>(url: string, body: unknown, config?: AxiosRequestConfig): Promise<T> {
-		await this.authenticate();
+		const [mageId, headers] = await this.authenticate();
 
-		return this.baseAdapter.put(this.replaceMageIdInURL(url), body, config);
+		return this.baseAdapter.put(replaceMageIdInURL(url, mageId), body, addHeaders(config, headers));
 	}
 
 	async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-		await this.authenticate();
+		const [mageId, headers] = await this.authenticate();
 
-		return this.baseAdapter.delete(this.replaceMageIdInURL(url), config);
+		return this.baseAdapter.delete(replaceMageIdInURL(url, mageId), addHeaders(config, headers));
 	}
 
 	async getMageId(): Promise<string> {
-		await this.authenticate();
+		const [mageId] = await this.authenticate();
 
-		return this.mageId as string;
+		return mageId;
 	}
 
 	/**
@@ -54,16 +48,14 @@ export class AuthenticatedAdapter {
 	 * @see https://developer.magento.com/account/apikeys
 	 * @see https://devdocs.magento.com/marketplace/eqp/v1/auth.html#session-token
 	 */
-	protected async authenticate(): Promise<void> {
-		this.mageId = undefined;
-
-		const { expires_in, mage_id, ust } = await this.baseAdapter.post<{
+	protected async authenticate() {
+		const { mage_id, ust } = await this.baseAdapter.post<{
 			mage_id: string;
 			ust: string;
 			expires_in: number;
 		}>(
 			'/app/session/token',
-			{ grant_type: 'session', expires_in: this.credentials.tokenTTL ?? 7200 },
+			{ grant_type: 'session', expires_in: 360 },
 			{
 				auth: {
 					username: this.credentials.appId,
@@ -72,19 +64,6 @@ export class AuthenticatedAdapter {
 			}
 		);
 
-		this.mageId = mage_id;
-
-		this.baseAdapter.setHeader('Authorization', `Bearer ${ust}`);
-
-		if (this.credentials.autoRefresh) {
-			// Re-run this function 5 seconds before the token expires
-			setTimeout(async () => {
-				this.authenticated = false;
-
-				await this.authenticate();
-			}, expires_in * 1000 - 5);
-		}
-
-		this.authenticated = true;
+		return [mage_id, { authorization: `Bearer ${ust}` }] as const;
 	}
 }

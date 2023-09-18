@@ -23,9 +23,12 @@ export class EQP {
 	readonly reportService: ReportService;
 	readonly packageService: PackageService;
 
-	/** The authenticated user's Magento ID */
-	get mageId(): string | undefined {
-		return this.adapter.mageId;
+	/**
+	 * Fetch the user's Mage ID
+	 * @see https://developer.adobe.com/commerce/marketplace/guides/eqp/v1/auth/#authentication-and-authorization-flow
+	 */
+	getMageId() {
+		return this.adapter.getMageId();
 	}
 
 	constructor(options: EQPOptions) {
@@ -35,9 +38,7 @@ export class EQP {
 			options.adapter ?? new AxiosAdapter(`https://commercedeveloper${options.environment === 'sandbox' ? '-sandbox' : ''}-api.adobe.com/rest/v1`),
 			{
 				appId: options.appId,
-				appSecret: options.appSecret,
-				autoRefresh: options.autoRefresh ?? false,
-				tokenTTL: options.expiresIn
+				appSecret: options.appSecret
 			}
 		);
 
