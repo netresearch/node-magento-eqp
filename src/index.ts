@@ -29,9 +29,10 @@ export class EQP {
 	}
 
 	constructor(options: EQPOptions) {
+		options.environment ??= 'production';
+
 		this.adapter = new AuthenticatedAdapter(
-			options.adapter ??
-				new AxiosAdapter(`https://developer${(options.environment ?? 'production') === 'staging' ? '-stg' : ''}-api.magento.com/rest/v1`),
+			options.adapter ?? new AxiosAdapter(`https://commercedeveloper${options.environment === 'sandbox' ? '-sandbox' : ''}-api.adobe.com/rest/v1`),
 			{
 				appId: options.appId,
 				appSecret: options.appSecret,
