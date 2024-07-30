@@ -19,14 +19,14 @@
 		"prepack": "yarn build:lib"
 	},
 	"devDependencies": {
-		"@types/node": "^8.10.66",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^7.0.0",
-		"eslint": "^8.45.0",
+		"@types/node": "^22.0.0",
+		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/parser": "^7.18.0",
+		"eslint": "^9.8.0",
 		"eslint-config-prettier": "^9.0.0",
 		"prettier": "^3.0.0",
 		"ts-node": "^10.9.1",
-		"typedoc": "^0.25.0",
+		"typedoc": "^0.26.5",
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
@@ -34,6 +34,6 @@
 		"tslib": "^2.6.0"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=20"
 	}
 }
