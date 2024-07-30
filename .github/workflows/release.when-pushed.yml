@@ -10,13 +10,13 @@ on:
 jobs:
   release:
     name: 📦☁️ Publish artifact
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
           scope: '@netresearch'
 
