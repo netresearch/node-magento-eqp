@@ -27,7 +27,7 @@ jobs:
         run: yarn pack --filename=package.tgz
 
       - name: 🚀 Upload package as an artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: package.tgz
