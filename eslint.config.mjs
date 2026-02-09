@@ -10,6 +10,7 @@ export default tseslint.config(
 	...tseslint.configs.recommended,
 	eslintConfigPrettier,
 	{
+		files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
 		rules: {
 			'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
 		},
