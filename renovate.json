@@ -7,13 +7,5 @@
   ],
   "automerge": true,
   "automergeType": "pr",
-  "platformAutomerge": true,
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "eslint"
-      ],
-      "allowedVersions": "<10.0.0"
-    }
-  ]
+  "platformAutomerge": true
 }
