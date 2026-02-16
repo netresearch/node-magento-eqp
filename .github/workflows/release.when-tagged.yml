@@ -44,8 +44,6 @@ jobs:
 
             - name: ☁️ Publish to NPM (OIDC + provenance)
               run: npm publish --access=public --provenance
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
             - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
               with:
