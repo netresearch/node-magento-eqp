@@ -42,6 +42,10 @@ jobs:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Auto-approve PR
+              # Skip for github-actions[bot] -- GITHUB_TOKEN can't approve
+              # its own PRs. release-please PRs need approval from pr-quality.yml
+              # using APPROVE_TOKEN, or manual approval.
+              if: github.event.pull_request.user.login != 'github-actions[bot]'
               env:
                   PR_URL: ${{ github.event.pull_request.html_url }}
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
