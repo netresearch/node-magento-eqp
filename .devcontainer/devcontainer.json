@@ -1,14 +1,14 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/typescript-node
+// For format details, see https://aka.ms/devcontainer.json
 {
-	"image": "node",
-	"forwardPorts": [
-		9229
-	],
+	"image": "node:24",
+	"forwardPorts": [9229],
 	"workspaceFolder": "/app",
 	"remoteUser": "node",
 	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
-	"extensions": [
-		"dbaeumer.vscode-eslint"
-	]
+	"postCreateCommand": "yarn install",
+	"customizations": {
+		"vscode": {
+			"extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+		}
+	}
 }
