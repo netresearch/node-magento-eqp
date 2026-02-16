@@ -43,12 +43,15 @@ const packages = await eqp.packageService.getPackages();
 ```javascript
 const { EQP } = require('@netresearch/node-magento-eqp');
 
-const eqp = new EQP({
-	appId: 'YOUR_APP_ID',
-	appSecret: 'YOUR_APP_SECRET'
-});
+(async () => {
+	const eqp = new EQP({
+		appId: 'YOUR_APP_ID',
+		appSecret: 'YOUR_APP_SECRET'
+	});
 
-const packages = await eqp.packageService.getPackages();
+	const packages = await eqp.packageService.getPackages();
+	console.log(packages);
+})();
 ```
 
 ### Available services
