@@ -52,8 +52,8 @@ jobs:
               run: gh pr review --approve "$PR_URL"
 
             - name: Auto-approve (bot via APPROVE_TOKEN)
-              if: steps.check-permission.outputs.permission == 'bot' && secrets.APPROVE_TOKEN != ''
+              if: steps.check-permission.outputs.permission == 'bot'
               env:
                   PR_URL: ${{ github.event.pull_request.html_url }}
-                  GH_TOKEN: ${{ secrets.APPROVE_TOKEN }}
-              run: gh pr review --approve "$PR_URL"
+                  GH_TOKEN: ${{ secrets.APPROVE_TOKEN || secrets.GITHUB_TOKEN }}
+              run: gh pr review --approve "$PR_URL" || true
