@@ -1,86 +1,90 @@
-<h1 align="center">Welcome to node-magento-eqp 👋</h1>
-<p>
-  <a href="https://npmjs.com/package/@netresearch/node-magento-eqp">
-    <img alt="Version" src="https://img.shields.io/npm/v/@netresearch/node-magento-eqp?style=for-the-badge" />
-  </a>
+# @netresearch/node-magento-eqp
 
-  <a href="https://github.com/netresearch/node-magento-eqp/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/npm/l/@netresearch/node-magento-eqp.svg?style=for-the-badge" />
-  </a>
+[![npm version](https://img.shields.io/npm/v/@netresearch/node-magento-eqp?style=flat-square)](https://www.npmjs.com/package/@netresearch/node-magento-eqp)
+[![CI](https://img.shields.io/github/actions/workflow/status/netresearch/node-magento-eqp/lint.and.build.yml?branch=main&style=flat-square&label=CI)](https://github.com/netresearch/node-magento-eqp/actions/workflows/lint.and.build.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/netresearch/node-magento-eqp/codeql.yml?branch=main&style=flat-square&label=CodeQL)](https://github.com/netresearch/node-magento-eqp/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/npm/l/@netresearch/node-magento-eqp?style=flat-square)](https://github.com/netresearch/node-magento-eqp/blob/main/LICENSE)
+[![Node.js](https://img.shields.io/node/v/@netresearch/node-magento-eqp?style=flat-square)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?style=flat-square)](https://www.typescriptlang.org/)
+[![Documentation](https://img.shields.io/badge/docs-TypeDoc-green?style=flat-square)](https://netresearch.github.io/node-magento-eqp)
 
-  <a href="https://github.com/netresearch/node-magento-eqp/actions" target="_blank">
-    <img alt="Build status" src="https://img.shields.io/github/workflow/status/netresearch/node-magento-eqp/%F0%9F%94%8E%20Lint?style=for-the-badge" />
-  </a>
+TypeScript API wrapper for the [Adobe Commerce Marketplace EQP API](https://developer.adobe.com/commerce/marketplace/guides/eqp/v1/).
 
-  <a href="https://netresearch.github.io/node-magento-eqp" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/Documentation-available-green.svg?style=for-the-badge">
-  </a>
-
-  <a href="https://twitter.com/netresearch" target="_blank">
-    <img alt="Twitter: Netresearch" src="https://img.shields.io/twitter/follow/netresearch?style=for-the-badge" />
-  </a>
-</p>
-
-> Simple API wrapper around the Magento Marketplace EQP API
-
-The primary focus of this package is, to provide a simple API wrapper and typings (unfinished) around the [Magento Marketplace EQP API](https://devdocs.magento.com/marketplace/eqp/v1/api.html).
-
-## Install
+## Installation
 
 ```sh
-yarn install @netresearch/node-magento-eqp
+yarn add @netresearch/node-magento-eqp
+```
+
+or
+
+```sh
+npm install @netresearch/node-magento-eqp
 ```
 
 ## Usage
 
-Usage in TypeScript (with ES Modules)
+### TypeScript (ES Modules)
 
 ```typescript
-import * as MagentoEQP from '@netresearch/node-magento-eqp';
+import { EQP } from '@netresearch/node-magento-eqp';
 
-const eqp = new MagentoEQP.EQP();
+const eqp = new EQP({
+	appId: 'YOUR_APP_ID',
+	appSecret: 'YOUR_APP_SECRET',
+	environment: 'sandbox' // or 'production' (default)
+});
 
-async function main() {
-  await eqp.authenticate('APP_ID', 'APP_SECRET');
-
-  const packages = await eqp.getPackages();
-
-  // Do something with the packages
-}
-
-main();
+const packages = await eqp.packageService.getPackages();
 ```
 
-Usage in JavaScript (with CommonJS)
+### JavaScript (CommonJS)
 
-```typescript
-const MagentoEQP = require('@netresearch/node-magento-eqp');
+```javascript
+const { EQP } = require('@netresearch/node-magento-eqp');
 
-const eqp = new MagentoEQP.EQP();
+const eqp = new EQP({
+	appId: 'YOUR_APP_ID',
+	appSecret: 'YOUR_APP_SECRET'
+});
 
-async function main() {
-  await eqp.authenticate('APP_ID', 'APP_SECRET');
-
-  const packages = await eqp.getPackages();
-
-  // Do something with the packages
-}
-
-main();
+const packages = await eqp.packageService.getPackages();
 ```
 
-## Author
+### Available services
 
-👤 **TheDevMinerTV <tobigames200@gmail.com>**
+| Service           | Description                                |
+| ----------------- | ------------------------------------------ |
+| `packageService`  | List and retrieve extension/theme packages |
+| `fileService`     | File upload metadata                       |
+| `userService`     | User profile management                    |
+| `keyService`      | Magento access keys (M1/M2)                |
+| `callbackService` | Webhook registration and event enrichment  |
+| `reportService`   | Marketplace analytics (experimental)       |
 
-- Github: [@TheDevMinerTV](https://github.com/TheDevMinerTV)
+### Constructor options
 
-## 🤝 Contributing
+| Option        | Type                        | Default        | Description                 |
+| ------------- | --------------------------- | -------------- | --------------------------- |
+| `appId`       | `string`                    | _required_     | Your EQP application ID     |
+| `appSecret`   | `string`                    | _required_     | Your EQP application secret |
+| `environment` | `'production' \| 'sandbox'` | `'production'` | API environment             |
+| `autoRefresh` | `boolean`                   | `false`        | _Reserved for future use_   |
+| `expiresIn`   | `number`                    | `360`          | _Reserved for future use_   |
+| `adapter`     | `Adapter`                   | `AxiosAdapter` | Custom HTTP adapter         |
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/netresearch/node-magento-eqp/issues). You can also take a look at the [contributing guide](https://github.com/netresearch/node-magento-eqp/blob/master/CONTRIBUTING.md).
+## API documentation
 
-## Show your support
+Full API documentation is available at [netresearch.github.io/node-magento-eqp](https://netresearch.github.io/node-magento-eqp).
 
-Give a ⭐️ if this project helped you!
+## Related packages
 
----
+- [`@netresearch/node-red-contrib-magento-eqp`](https://github.com/netresearch/node-red-contrib-magento-eqp) — Node-RED nodes for Magento EQP callbacks
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome. See the [contributing guide](CONTRIBUTING.md) for details.
+
+## License
+
+[MIT](LICENSE) - Netresearch DTT GmbH
