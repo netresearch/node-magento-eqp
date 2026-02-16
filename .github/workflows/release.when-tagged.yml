@@ -1,6 +1,10 @@
 # Publish and create GitHub Release when a signed tag is pushed.
 # Triggered by: git tag -s vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
 # Also available via workflow_dispatch for manual reruns.
+#
+# npm authentication uses OIDC trusted publishing (no NPM_TOKEN needed).
+# Setup: https://www.npmjs.com/package/@netresearch/node-magento-eqp/access
+# → Trusted Publisher → GitHub Actions → workflow: release.when-tagged.yml
 
 name: 📦☁️ Release
 
@@ -13,6 +17,7 @@ on:
 permissions:
     contents: write
     packages: write
+    id-token: write # OIDC trusted publishing to npm
 
 env:
     HUSKY: '0'
@@ -37,8 +42,8 @@ jobs:
             - name: 🔨 Build
               run: yarn build:lib
 
-            - name: ☁️ Publish to NPM
-              run: yarn publish --access=public
+            - name: ☁️ Publish to NPM (OIDC + provenance)
+              run: npm publish --access=public --provenance
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -49,7 +54,7 @@ jobs:
                   scope: '@netresearch'
 
             - name: ☁️ Publish to GitHub Package Registry
-              run: yarn publish --access=public
+              run: npm publish --access=public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
