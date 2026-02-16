@@ -1,8 +1,11 @@
-name: Auto-merge dependency PRs
-
+# Auto-merge dependency updates from Dependabot and Renovate.
+# Requires: branch protection with required status checks (--auto flag needs it).
+#
 # SECURITY: This workflow uses pull_request_target which runs with base branch
 # permissions. NEVER add an actions/checkout step here -- that would allow code
 # from the PR to execute with write access to the repository.
+
+name: Auto-merge dependency PRs
 
 on:
     pull_request_target:
@@ -14,11 +17,27 @@ permissions:
 
 jobs:
     auto-merge:
-        runs-on: ubuntu-latest
-        # Only run for bot accounts
-        if: github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]'
+        name: Auto-merge dependency PRs
+        runs-on: ubuntu-24.04
+        # Use user.login instead of actor -- actor can change on synchronize/rerun
+        if: >-
+            github.event.pull_request.user.login == 'dependabot[bot]' ||
+            github.event.pull_request.user.login == 'renovate[bot]'
+
         steps:
-            - name: Approve PR
+            - name: Harden Runner
+              uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+              with:
+                  egress-policy: audit
+
+            - name: Dependabot metadata
+              id: metadata
+              if: github.event.pull_request.user.login == 'dependabot[bot]'
+              uses: dependabot/fetch-metadata@21025c705c08248db411dc16f3619e6b5f9ea21a # v2.5.0
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Auto-approve PR
               env:
                   PR_URL: ${{ github.event.pull_request.html_url }}
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
