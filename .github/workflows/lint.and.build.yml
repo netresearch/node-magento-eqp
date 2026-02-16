@@ -1,0 +1,52 @@
+name: 🔎 Lint
+
+on:
+    workflow_dispatch:
+    push:
+        branches-ignore: [gh-pages]
+    pull_request:
+        branches-ignore: [gh-pages]
+        types: [opened, synchronize]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+env:
+    HUSKY: '0'
+
+jobs:
+    build:
+        name: 🔨 Build
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+            - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+              with:
+                  node-version: 24
+                  cache: yarn
+
+            - name: ⚡ Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: 🔨 Build
+              run: yarn build:lib
+
+    lint:
+        name: 🔎 Lint
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+            - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+              with:
+                  node-version: 24
+                  cache: yarn
+
+            - name: ⚡ Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: 🔎 Lint
+              run: yarn lint

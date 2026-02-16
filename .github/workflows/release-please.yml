@@ -1,26 +1,36 @@
-# Manual fallback for publishing. Primary path is release-please.yml.
-# Tags created by GITHUB_TOKEN (release-please) don't trigger this workflow.
-# This only fires on manual workflow_dispatch or tags pushed with a PAT.
-
-name: 📦☁️ Release (manual)
+name: Release Please
 
 on:
-    workflow_dispatch:
     push:
-        tags:
-            - 'v*'
+        branches: [main]
 
 permissions:
-    contents: read
-    packages: write
-
-env:
-    HUSKY: '0'
+    contents: write
+    pull-requests: write
 
 jobs:
-    build:
-        name: 📦☁️ Release
+    release-please:
+        name: 📋 Release Please
+        runs-on: ubuntu-latest
+        outputs:
+            release_created: ${{ steps.release.outputs.release_created }}
+            tag_name: ${{ steps.release.outputs.tag_name }}
+        steps:
+            - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
+              id: release
+              with:
+                  release-type: node
+
+    publish:
+        name: 📦☁️ Publish to registries
+        needs: release-please
+        if: ${{ needs.release-please.outputs.release_created }}
         runs-on: ubuntu-24.04
+        permissions:
+            contents: read
+            packages: write
+        env:
+            HUSKY: '0'
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
