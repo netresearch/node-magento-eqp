@@ -11,7 +11,8 @@ TypeScript API wrapper for Adobe Commerce (Magento) Marketplace EQP API. Adapter
 | File                          | Purpose                                                                      |
 | ----------------------------- | ---------------------------------------------------------------------------- |
 | `index.ts`                    | `EQP` class — main entry point, instantiates services, re-exports all types  |
-| `Adapters.ts`                 | `AxiosAdapter` — default HTTP client implementing `Adapter` interface        |
+| `FetchAdapter.ts`             | `FetchAdapter` — default HTTP client using native `fetch`                    |
+| `HttpError.ts`                | `HttpError` — error class for non-2xx HTTP responses                         |
 | `AuthenticatedAdapter.ts`     | OAuth2 session management, Bearer token injection, `\|MAGE_ID\|` replacement |
 | `services/CallbackService.ts` | Webhook registration (`registerCallback`) + event parsing (`parseCallback`)  |
 | `services/FileService.ts`     | File upload metadata retrieval                                               |
@@ -59,6 +60,6 @@ TypeScript API wrapper for Adobe Commerce (Magento) Marketplace EQP API. Adapter
 ## When stuck
 
 - TypeScript handbook: https://www.typescriptlang.org/docs
-- Axios docs: https://axios-http.com/docs/intro
+- Fetch API: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 - Magento EQP API: https://developer.adobe.com/commerce/marketplace/guides/eqp/v1/
 - Check root AGENTS.md for project-wide conventions

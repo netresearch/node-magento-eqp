@@ -1,4 +1,4 @@
-import { AxiosAdapter } from './Adapters';
+import { FetchAdapter } from './FetchAdapter';
 import { AuthenticatedAdapter } from './AuthenticatedAdapter';
 import { CallbackService } from './services/CallbackService';
 import { FileService } from './services/FileService';
@@ -8,7 +8,8 @@ import { ReportService } from './services/ReportService';
 import { UserService } from './services/UserService';
 import { EQPOptions } from './types/options';
 
-export { AxiosAdapter } from './Adapters';
+export { FetchAdapter } from './FetchAdapter';
+export { HttpError } from './HttpError';
 export { AuthenticatedAdapter } from './AuthenticatedAdapter';
 export * from './services';
 export * from './types';
@@ -35,7 +36,7 @@ export class EQP {
 		options.environment ??= 'production';
 
 		this.adapter = new AuthenticatedAdapter(
-			options.adapter ?? new AxiosAdapter(`https://commercedeveloper${options.environment === 'sandbox' ? '-sandbox' : ''}-api.adobe.com/rest/v1`),
+			options.adapter ?? new FetchAdapter(`https://commercedeveloper${options.environment === 'sandbox' ? '-sandbox' : ''}-api.adobe.com/rest/v1`),
 			{
 				appId: options.appId,
 				appSecret: options.appSecret

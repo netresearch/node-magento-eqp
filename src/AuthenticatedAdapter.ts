@@ -1,8 +1,8 @@
-import { AxiosRequestConfig } from 'axios';
+import { RequestConfig } from './types/adapters';
 import { Adapter } from './types/adapters';
 
 const replaceMageIdInURL = (url: string, mageId: string) => url.replace(/\|MAGE_ID\|/, mageId);
-const addHeaders = (config: AxiosRequestConfig | undefined, headers: Record<string, string>) => ({ ...config, headers: { ...config?.headers, ...headers } });
+const addHeaders = (config: RequestConfig | undefined, headers: Record<string, string>) => ({ ...config, headers: { ...config?.headers, ...headers } });
 
 export class AuthenticatedAdapter {
 	constructor(
@@ -11,27 +11,27 @@ export class AuthenticatedAdapter {
 			appSecret: string;
 			appId: string;
 		}
-	) { }
+	) {}
 
-	async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+	async get<T>(url: string, config?: RequestConfig): Promise<T> {
 		const [mageId, headers] = await this.authenticate();
 
 		return this.baseAdapter.get(replaceMageIdInURL(url, mageId), addHeaders(config, headers));
 	}
 
-	async post<T>(url: string, body: unknown, config?: AxiosRequestConfig): Promise<T> {
+	async post<T>(url: string, body: unknown, config?: RequestConfig): Promise<T> {
 		const [mageId, headers] = await this.authenticate();
 
 		return this.baseAdapter.post(replaceMageIdInURL(url, mageId), body, addHeaders(config, headers));
 	}
 
-	async put<T>(url: string, body: unknown, config?: AxiosRequestConfig): Promise<T> {
+	async put<T>(url: string, body: unknown, config?: RequestConfig): Promise<T> {
 		const [mageId, headers] = await this.authenticate();
 
 		return this.baseAdapter.put(replaceMageIdInURL(url, mageId), body, addHeaders(config, headers));
 	}
 
-	async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+	async delete<T>(url: string, config?: RequestConfig): Promise<T> {
 		const [mageId, headers] = await this.authenticate();
 
 		return this.baseAdapter.delete(replaceMageIdInURL(url, mageId), addHeaders(config, headers));

@@ -53,7 +53,8 @@
 ```
 src/
 ├── index.ts              → EQP class (main entry point, re-exports all types)
-├── Adapters.ts           → AxiosAdapter (default HTTP client)
+├── FetchAdapter.ts       → FetchAdapter (default HTTP client using native fetch)
+├── HttpError.ts          → HttpError class for non-2xx responses
 ├── AuthenticatedAdapter.ts → OAuth2 session + Bearer token injection
 ├── services/
 │   ├── CallbackService.ts  → Webhook registration + event parsing
@@ -73,7 +74,7 @@ src/
 
 **Key patterns:**
 
-- Adapter pattern for HTTP abstraction (`Adapter` interface → `AxiosAdapter`)
+- Adapter pattern for HTTP abstraction (`Adapter` interface → `FetchAdapter`)
 - `AuthenticatedAdapter` wraps any `Adapter` with automatic OAuth2 token management
 - `|MAGE_ID|` placeholder in URLs gets replaced with authenticated user's `mage_id`
 - One service class per API domain, each receives the authenticated adapter

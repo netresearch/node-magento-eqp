@@ -74,7 +74,7 @@ const { EQP } = require('@netresearch/node-magento-eqp');
 | `environment` | `'production' \| 'sandbox'` | `'production'` | API environment             |
 | `autoRefresh` | `boolean`                   | `false`        | _Reserved for future use_   |
 | `expiresIn`   | `number`                    | `360`          | _Reserved for future use_   |
-| `adapter`     | `Adapter`                   | `AxiosAdapter` | Custom HTTP adapter         |
+| `adapter`     | `Adapter`                   | `FetchAdapter` | Custom HTTP adapter         |
 
 ## API documentation
 
