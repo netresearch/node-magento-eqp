@@ -1,8 +1,8 @@
-# Manual fallback for publishing. Primary path is release-please.yml.
-# Tags created by GITHUB_TOKEN (release-please) don't trigger this workflow.
-# This only fires on manual workflow_dispatch or tags pushed with a PAT.
+# Publish and create GitHub Release when a signed tag is pushed.
+# Triggered by: git tag -s vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
+# Also available via workflow_dispatch for manual reruns.
 
-name: 📦☁️ Release (manual)
+name: 📦☁️ Release
 
 on:
     workflow_dispatch:
@@ -11,15 +11,15 @@ on:
             - 'v*'
 
 permissions:
-    contents: read
+    contents: write
     packages: write
 
 env:
     HUSKY: '0'
 
 jobs:
-    build:
-        name: 📦☁️ Release
+    release:
+        name: 📦☁️ Publish and release
         runs-on: ubuntu-24.04
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -52,3 +52,9 @@ jobs:
               run: yarn publish --access=public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: 📋 Create GitHub Release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  TAG: ${{ github.ref_name }}
+              run: gh release create "$TAG" --generate-notes

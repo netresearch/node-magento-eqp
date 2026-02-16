@@ -1,3 +1,6 @@
+# Creates version-bump PRs with changelogs from conventional commits.
+# Does NOT create releases or tags -- those are signed locally and pushed
+# manually. The signed tag triggers release.when-tagged.yml for publishing.
 name: Release Please
 
 on:
@@ -12,53 +15,8 @@ jobs:
     release-please:
         name: 📋 Release Please
         runs-on: ubuntu-24.04
-        outputs:
-            release_created: ${{ steps.release.outputs.release_created }}
-            tag_name: ${{ steps.release.outputs.tag_name }}
         steps:
             - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
-              id: release
               with:
                   release-type: node
-
-    publish:
-        name: 📦☁️ Publish to registries
-        needs: release-please
-        if: ${{ needs.release-please.outputs.release_created }}
-        runs-on: ubuntu-24.04
-        permissions:
-            contents: read
-            packages: write
-        env:
-            HUSKY: '0'
-        steps:
-            - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-            - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-              with:
-                  node-version: 24
-                  registry-url: 'https://registry.npmjs.org'
-                  scope: '@netresearch'
-                  cache: yarn
-
-            - name: ⚡ Install dependencies
-              run: yarn install --frozen-lockfile
-
-            - name: 🔨 Build
-              run: yarn build:lib
-
-            - name: ☁️ Publish to NPM
-              run: yarn publish --access=public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-            - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-              with:
-                  node-version: 24
-                  registry-url: 'https://npm.pkg.github.com'
-                  scope: '@netresearch'
-
-            - name: ☁️ Publish to GitHub Package Registry
-              run: yarn publish --access=public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  skip-github-release: true

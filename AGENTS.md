@@ -112,6 +112,7 @@ docs/             → TypeDoc generated docs (gitignored, deployed to gh-pages)
 - **Required checks:** Lint, Build
 - **Require up-to-date:** yes — rebase before merge
 - **Dependency updates:** Renovate (auto-merge minor/patch)
+- **Release flow:** release-please creates version-bump PR (auto) → auto-merge (auto) → maintainer pushes signed tag → CI publishes + creates GitHub Release
 
 ## Boundaries
 
