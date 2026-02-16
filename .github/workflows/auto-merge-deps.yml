@@ -1,11 +1,11 @@
-# Auto-merge dependency updates from Dependabot and Renovate.
+# Auto-merge bot PRs: Dependabot, Renovate, and release-please.
 # Requires: branch protection with required status checks (--auto flag needs it).
 #
 # SECURITY: This workflow uses pull_request_target which runs with base branch
 # permissions. NEVER add an actions/checkout step here -- that would allow code
 # from the PR to execute with write access to the repository.
 
-name: Auto-merge dependency PRs
+name: Auto-merge bot PRs
 
 on:
     pull_request_target:
@@ -17,12 +17,16 @@ permissions:
 
 jobs:
     auto-merge:
-        name: Auto-merge dependency PRs
+        name: Auto-merge bot PRs
         runs-on: ubuntu-24.04
-        # Use user.login instead of actor -- actor can change on synchronize/rerun
+        # Use user.login instead of actor -- actor can change on synchronize/rerun.
+        # release-please PRs come from github-actions[bot]; scope with label check
+        # to avoid approving unrelated github-actions PRs.
         if: >-
             github.event.pull_request.user.login == 'dependabot[bot]' ||
-            github.event.pull_request.user.login == 'renovate[bot]'
+            github.event.pull_request.user.login == 'renovate[bot]' ||
+            (github.event.pull_request.user.login == 'github-actions[bot]' &&
+             contains(github.event.pull_request.labels.*.name, 'autorelease: pending'))
 
         steps:
             - name: Harden Runner

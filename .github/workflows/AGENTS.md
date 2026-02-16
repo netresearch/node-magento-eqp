@@ -8,14 +8,15 @@ GitHub Actions workflows for CI, documentation, and release automation.
 
 ## Key Files
 
-| File                      | Purpose                                                         |
-| ------------------------- | --------------------------------------------------------------- |
-| `lint.and.build.yml`      | CI: parallel lint + build on push/PR                            |
-| `docs.yml`                | Build TypeDoc docs, deploy to GitHub Pages (push to main)       |
-| `release.when-tagged.yml` | Manual publish to npm + GitHub Packages on `v*` tags (fallback) |
-| `codeql.yml`              | CodeQL security analysis (scheduled + push/PR to main)          |
-| `release-please.yml`      | Automated versioning, changelog, and publish via release-please |
-| `auto-merge-deps.yml`     | Auto-approve + auto-merge Renovate/Dependabot PRs               |
+| File                      | Purpose                                                                  |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `lint.and.build.yml`      | CI: parallel lint + build on push/PR                                     |
+| `docs.yml`                | Build TypeDoc docs, deploy to GitHub Pages (push to main)                |
+| `pr-quality.yml`          | Auto-approve PRs from repo collaborators (solo-maintainer pattern)       |
+| `release-please.yml`      | Creates version-bump PRs with changelogs (does NOT create tags/releases) |
+| `release.when-tagged.yml` | Publish to npm + GPR + create GitHub Release on signed `v*` tag push     |
+| `codeql.yml`              | CodeQL security analysis (scheduled + push/PR to main)                   |
+| `auto-merge-deps.yml`     | Auto-approve + auto-merge Dependabot, Renovate, and release-please PRs   |
 
 ## Workflow conventions
 
