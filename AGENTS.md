@@ -25,7 +25,7 @@
 | ---------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | [`@netresearch/node-red-contrib-magento-eqp`](https://github.com/netresearch/node-red-contrib-magento-eqp) | `^4.0.8` | `EQP` class, `EQPStatusUpdateEvent`, `MalwareScanCompleteEvent`, `callbackService.parseCallback()`, `callbackService.registerCallback()` |
 
-> **Do not break the public API** — all changes must stay semver-compatible within `^4.x`.
+> **Do not break the public API** — all changes must stay semver-compatible within `^5.x`.
 
 ## Commands
 
