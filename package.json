@@ -12,9 +12,11 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "yarn build:lib && yarn build:docs",
-		"build:lib": "tsc",
+		"build:lib": "tsc -p tsconfig.build.json",
 		"build:lib:dev": "tsc -w",
 		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
+		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
 		"lint": "eslint src",
 		"prepack": "yarn build:lib",
 		"prepare": "husky"
@@ -22,6 +24,7 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.0",
 		"@types/node": "^24.0.0",
+		"@vitest/coverage-v8": "^4.0.18",
 		"eslint": "^10.0.0",
 		"eslint-config-prettier": "^10.0.0",
 		"husky": "^9.1.7",
@@ -29,7 +32,8 @@
 		"prettier": "^3.0.0",
 		"typedoc": "^0.28.0",
 		"typescript": "^5.1.6",
-		"typescript-eslint": "^8.0.0"
+		"typescript-eslint": "^8.0.0",
+		"vitest": "^4.0.18"
 	},
 	"dependencies": {
 		"tslib": "^2.6.0"
