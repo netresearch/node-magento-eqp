@@ -23,7 +23,7 @@ describe('CallbackService', () => {
 				updateUser: vi.fn().mockResolvedValue({ mage_id: 'MAG123' })
 			},
 			packageService: {
-				getPackageBySubmissionId: vi.fn().mockResolvedValue({ submission_id: 'sub-1' })
+				getPackageBySubmissionId: vi.fn().mockImplementation((id: string) => Promise.resolve({ submission_id: id }))
 			},
 			fileService: {
 				getFile: vi.fn().mockResolvedValue({
@@ -92,7 +92,7 @@ describe('CallbackService', () => {
 			expect(mockEqp.packageService.getPackageBySubmissionId).toHaveBeenCalledWith('sub-2');
 			expect(result).toEqual({
 				file: { file_upload_id: 'file-1', submission_ids: ['sub-1', 'sub-2'] },
-				submissions: [{ submission_id: 'sub-1' }, { submission_id: 'sub-1' }],
+				submissions: [{ submission_id: 'sub-1' }, { submission_id: 'sub-2' }],
 				result: 'pass'
 			});
 		});

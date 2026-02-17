@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { EQP } from '../index';
+import { FetchAdapter } from '../FetchAdapter';
 import { FileService } from '../services/FileService';
 import { UserService } from '../services/UserService';
 import { KeyService } from '../services/KeyService';
@@ -7,8 +8,9 @@ import { CallbackService } from '../services/CallbackService';
 import { ReportService } from '../services/ReportService';
 import { PackageService } from '../services/PackageService';
 
-// Mock global fetch to prevent real requests during EQP construction
-vi.stubGlobal('fetch', vi.fn());
+vi.mock('../FetchAdapter', () => ({
+	FetchAdapter: vi.fn()
+}));
 
 describe('EQP', () => {
 	const defaultOptions = {
@@ -16,23 +18,27 @@ describe('EQP', () => {
 		appSecret: 'test-app-secret'
 	};
 
+	beforeEach(() => {
+		vi.clearAllMocks();
+	});
+
 	describe('environment URLs', () => {
 		it('should use production URL by default', () => {
-			const eqp = new EQP(defaultOptions);
+			new EQP(defaultOptions);
 
-			expect(eqp).toBeDefined();
+			expect(FetchAdapter).toHaveBeenCalledWith('https://commercedeveloper-api.adobe.com/rest/v1');
 		});
 
 		it('should use production URL when environment is "production"', () => {
-			const eqp = new EQP({ ...defaultOptions, environment: 'production' });
+			new EQP({ ...defaultOptions, environment: 'production' });
 
-			expect(eqp).toBeDefined();
+			expect(FetchAdapter).toHaveBeenCalledWith('https://commercedeveloper-api.adobe.com/rest/v1');
 		});
 
 		it('should use sandbox URL when environment is "sandbox"', () => {
-			const eqp = new EQP({ ...defaultOptions, environment: 'sandbox' });
+			new EQP({ ...defaultOptions, environment: 'sandbox' });
 
-			expect(eqp).toBeDefined();
+			expect(FetchAdapter).toHaveBeenCalledWith('https://commercedeveloper-sandbox-api.adobe.com/rest/v1');
 		});
 	});
 
@@ -46,9 +52,9 @@ describe('EQP', () => {
 				delete: vi.fn()
 			};
 
-			const eqp = new EQP({ ...defaultOptions, adapter: customAdapter });
+			new EQP({ ...defaultOptions, adapter: customAdapter });
 
-			expect(eqp).toBeDefined();
+			expect(FetchAdapter).not.toHaveBeenCalled();
 		});
 	});
 
