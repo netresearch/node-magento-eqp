@@ -1,4 +1,4 @@
-<!-- Managed by agent: keep sections and order; edit content, not structure. Last updated: 2026-02-16 -->
+<!-- Managed by agent: keep sections and order; edit content, not structure. Last updated: 2026-03-02 -->
 
 # AGENTS.md — workflows
 
@@ -10,7 +10,7 @@ GitHub Actions workflows for CI, documentation, and release automation.
 
 | File                      | Purpose                                                                  |
 | ------------------------- | ------------------------------------------------------------------------ |
-| `lint.and.build.yml`      | CI: parallel lint + build on push/PR                                     |
+| `lint.and.build.yml`      | CI: parallel lint + build + test on push/PR                              |
 | `docs.yml`                | Build TypeDoc docs, deploy to GitHub Pages (push to main)                |
 | `pr-quality.yml`          | Auto-approve PRs from repo collaborators (solo-maintainer pattern)       |
 | `release-please.yml`      | Creates version-bump PRs with changelogs (does NOT create tags/releases) |
