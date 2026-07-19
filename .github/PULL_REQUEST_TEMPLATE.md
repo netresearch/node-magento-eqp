@@ -12,6 +12,6 @@
 
 ## Checklist
 
-- [ ] Lint passes (`yarn lint`)
-- [ ] Build passes (`yarn build:lib`)
+- [ ] Lint passes (`bun run lint`)
+- [ ] Build passes (`bun run build:lib`)
 - [ ] Public API unchanged (or downstream consumers checked)

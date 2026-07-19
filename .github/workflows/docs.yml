@@ -30,13 +30,14 @@ jobs:
             - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
               with:
                   node-version: '24'
-                  cache: yarn
+
+            - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
 
             - name: ⚡ Install dependencies
-              run: yarn install --frozen-lockfile
+              run: bun install --frozen-lockfile
 
             - name: 🔨 Build documentation
-              run: yarn build:docs
+              run: bun run build:docs
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

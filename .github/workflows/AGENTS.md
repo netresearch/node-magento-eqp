@@ -24,7 +24,7 @@ GitHub Actions workflows for CI, documentation, and release automation.
 - **Minimal permissions**: Use `permissions:` block, never use `permissions: write-all`
 - **Node version**: 24 (match `engines` in package.json)
 - **Runner**: `ubuntu-24.04` or `ubuntu-latest`
-- **Package manager**: yarn with `--frozen-lockfile` in CI
+- **Package manager**: bun with `--frozen-lockfile` in CI
 
 ### Naming conventions
 
