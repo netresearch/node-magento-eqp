@@ -10,32 +10,32 @@ name: Security
 # netresearch/.github's go-app / php-module templates.
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
+    push:
+        branches: [main, master]
+    pull_request:
 
 permissions: {}
 
 jobs:
-  gitleaks:
-    uses: netresearch/.github/.github/workflows/gitleaks.yml@main
-    permissions:
-      contents: read
-      security-events: write
-    secrets:
-      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+    gitleaks:
+        uses: netresearch/.github/.github/workflows/gitleaks.yml@main
+        permissions:
+            contents: read
+            security-events: write
+        secrets:
+            GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
 
-  dependency-review:
-    if: github.event_name == 'pull_request'
-    uses: netresearch/.github/.github/workflows/dependency-review.yml@main
-    permissions:
-      contents: read
-      pull-requests: write
+    dependency-review:
+        if: github.event_name == 'pull_request'
+        uses: netresearch/.github/.github/workflows/dependency-review.yml@main
+        permissions:
+            contents: read
+            pull-requests: write
 
-  node-audit:
-    uses: netresearch/.github/.github/workflows/node-audit.yml@main
-    permissions:
-      contents: read
-    with:
-      package-manager: yarn
-      audit-level: high
+    node-audit:
+        uses: netresearch/.github/.github/workflows/node-audit.yml@main
+        permissions:
+            contents: read
+        with:
+            package-manager: bun
+            audit-level: high

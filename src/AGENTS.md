@@ -54,20 +54,20 @@ TypeScript API wrapper for Adobe Commerce (Magento) Marketplace EQP API. Adapter
 
 ## Build & checks
 
-| Task            | Command                                              |
-| --------------- | ---------------------------------------------------- |
-| Build lib       | `yarn build:lib` (runs `tsc -p tsconfig.build.json`) |
-| Lint            | `yarn lint`                                          |
-| Build docs      | `yarn build:docs` (runs TypeDoc)                     |
-| Test            | `yarn test`                                          |
-| Test + coverage | `yarn test:coverage`                                 |
+| Task            | Command                                                 |
+| --------------- | ------------------------------------------------------- |
+| Build lib       | `bun run build:lib` (runs `tsc -p tsconfig.build.json`) |
+| Lint            | `bun run lint`                                          |
+| Build docs      | `bun run build:docs` (runs TypeDoc)                     |
+| Test            | `bun run test`                                          |
+| Test + coverage | `bun run test:coverage`                                 |
 
 ## PR/commit checklist
 
-- [ ] Tests pass: `yarn test`
-- [ ] Lint clean: `yarn lint`
-- [ ] Build clean: `yarn build:lib`
-- [ ] Coverage ≥95%: `yarn test:coverage`
+- [ ] Tests pass: `bun run test`
+- [ ] Lint clean: `bun run lint`
+- [ ] Build clean: `bun run build:lib`
+- [ ] Coverage ≥95%: `bun run test:coverage`
 - [ ] No `any` types without justification
 - [ ] New types exported from barrel files
 - [ ] New code has corresponding tests

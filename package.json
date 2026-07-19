@@ -11,14 +11,14 @@
 	"author": "DevMiner <devminer@devminer.xyz>",
 	"license": "MIT",
 	"scripts": {
-		"build": "yarn build:lib && yarn build:docs",
+		"build": "bun run build:lib && bun run build:docs",
 		"build:lib": "tsc -p tsconfig.build.json",
 		"build:lib:dev": "tsc -w",
 		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
 		"test": "vitest run",
 		"test:coverage": "vitest run --coverage",
 		"lint": "eslint src",
-		"prepack": "yarn build:lib",
+		"prepack": "bun run build:lib",
 		"prepare": "husky"
 	},
 	"devDependencies": {

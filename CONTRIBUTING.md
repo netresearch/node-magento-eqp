@@ -7,7 +7,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Pull Request Process
 
-1. Ensure `yarn lint` and `yarn build:lib` pass before submitting
+1. Ensure `bun run lint` and `bun run build:lib` pass before submitting
 2. Update the README if the public API changes
 3. Follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, etc.)
 4. Follow [SemVer](http://semver.org/) — do not break `^4.x` compatibility

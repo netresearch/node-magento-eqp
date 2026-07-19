@@ -5,7 +5,10 @@
 	"workspaceFolder": "/app",
 	"remoteUser": "node",
 	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
-	"postCreateCommand": "yarn install",
+	"features": {
+		"ghcr.io/shyim/devcontainers-features/bun:0": {}
+	},
+	"postCreateCommand": "bun install",
 	"customizations": {
 		"vscode": {
 			"extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
