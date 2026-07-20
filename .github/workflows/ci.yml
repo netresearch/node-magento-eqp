@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Whole CI surface via the org node gold-standard reusable: TS
+  # lint/type-check, tests, build, dependency audit, CodeQL, secret
+  # scanning, dependency review. Replaces lint.and.build.yml + codeql.yml +
+  # security.yml.
+  ci:
+    uses: netresearch/.github/.github/workflows/node-ci.yml@feat/node-gold-standard
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      pull-requests: write
+    with:
+      package-manager: bun
+      type-check-cmd: "bun run build:lib"
+      build-cmd: "bun run build:lib"
+      enable-format-check: false
+    secrets:
+      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
