@@ -1,38 +1,24 @@
 name: 'CodeQL'
 
 on:
-    push:
-        branches: ['main']
-    pull_request:
-        branches: ['main']
-    schedule:
-        - cron: '18 21 * * 2'
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+  schedule:
+    - cron: '18 21 * * 2'
 
 permissions: {}
 
 jobs:
-    analyze:
-        name: Analyze
-        runs-on: ubuntu-latest
-        timeout-minutes: 360
-        permissions:
-            actions: read
-            contents: read
-            security-events: write
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-
-            - name: Initialize CodeQL
-              uses: github/codeql-action/init@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
-              with:
-                  languages: javascript
-
-            - name: Autobuild
-              uses: github/codeql-action/autobuild@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
-
-            - name: Perform CodeQL Analysis
-              uses: github/codeql-action/analyze@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
-              with:
-                  category: '/language:javascript'
+  # CodeQL runs through the org's shared reusable in netresearch/.github,
+  # so the pinned github/codeql-action versions are maintained centrally
+  # instead of bumped per-repo by Renovate.
+  analyze:
+    uses: netresearch/.github/.github/workflows/codeql.yml@main
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    with:
+      languages: javascript-typescript
