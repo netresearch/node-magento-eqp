@@ -17,7 +17,7 @@ jobs:
   # scanning, dependency review. Replaces lint.and.build.yml + codeql.yml +
   # security.yml.
   ci:
-    uses: netresearch/.github/.github/workflows/node-ci.yml@feat/node-gold-standard
+    uses: netresearch/.github/.github/workflows/node-ci.yml@main
     permissions:
       actions: read
       contents: read
