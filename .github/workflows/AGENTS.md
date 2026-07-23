@@ -16,7 +16,7 @@ GitHub Actions workflows for CI, documentation, and release automation.
 | `release-please.yml`      | Creates version-bump PRs with changelogs (does NOT create tags/releases) |
 | `release.when-tagged.yml` | Publish to npm + GPR + create GitHub Release on signed `v*` tag push     |
 | `codeql.yml`              | CodeQL security analysis (scheduled + push/PR to main)                   |
-| `auto-merge-deps.yml`     | Auto-approve + auto-merge Dependabot, Renovate, and release-please PRs   |
+| `auto-merge-deps.yml`     | Auto-approve + auto-merge Dependabot and Renovate PRs (shared reusable)  |
 
 ## Workflow conventions
 
