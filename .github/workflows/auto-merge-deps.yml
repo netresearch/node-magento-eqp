@@ -4,6 +4,15 @@
 # netresearch/.github/.github/workflows/auto-merge-deps.yml. This file has ZERO
 # step-level `uses:` — the single job is a `uses:` of that reusable.
 #
+# The former third arm (github-actions[bot] + label 'autorelease: pending',
+# i.e. release-please) is REMOVED, not reimplemented in the shared workflow.
+# Its approve step was a no-op by construction (skipped for that very author,
+# deferring to an APPROVE_TOKEN path that never existed); its merge half ran
+# for exactly one PR in this repo's history (#466, 2026-02-16). Releases are
+# cut by pushing a signed v* tag via release.when-tagged.yml. See
+# netresearch/.github#261. Reviving release-please here means re-adding
+# auto-merge for it explicitly.
+#
 # `merge-strategy: rebase` is REQUIRED here. The reusable auto-detects the
 # strategy squash-first, but this repo has squash merges disabled
 # (allow_squash_merge=false, allow_merge_commit=true, allow_rebase_merge=true),
