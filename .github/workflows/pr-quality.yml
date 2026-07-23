@@ -1,59 +1,42 @@
-# Solo-maintainer auto-approve: approves PRs from repo collaborators and
-# trusted bots so that required_approving_review_count >= 1 is satisfied
-# without manual review.
+# Solo-maintainer auto-approve: approves PRs whose author holds `admin` or
+# `write` permission on this repository, so that
+# required_approving_review_count >= 1 is satisfied without manual review.
 #
-# For bot PRs (github-actions[bot]), GITHUB_TOKEN can't self-approve.
-# Set an APPROVE_TOKEN secret (PAT with repo scope) to approve bot PRs.
-# Without APPROVE_TOKEN, bot PRs require manual approval.
+# All logic lives in the shared reusable workflow
+# netresearch/.github/.github/workflows/pr-quality.yml. This file has ZERO
+# step-level `uses:` — every job is a `uses:` of that reusable.
 #
-# SECURITY: This workflow uses pull_request_target which runs with base branch
-# permissions. NEVER add an actions/checkout step here.
+# `auto-approve-require-write: true` is REQUIRED here: the reusable's default
+# authorization test is `author_association` (OWNER/MEMBER/COLLABORATOR),
+# which is not a permission — it also matches read/triage collaborators. The
+# opt-in replaces it with `GET /repos/{repo}/collaborators/{author}/permission`
+# and approves only on `admin`/`write`, matching what this repo enforced
+# before the migration.
+#
+# Bot PRs (dependabot[bot], renovate[bot]) are approved by auto-merge-deps.yml,
+# not here. See the PR that introduced this file for the evidence.
+#
+# SECURITY: This workflow uses pull_request_target, which runs with base branch
+# permissions. Never add a step that executes content from the PR head.
 
 name: PR Quality Gates
 
 on:
     pull_request_target:
-        types: [opened, synchronize, reopened]
+        # `ready_for_review` compensates for the reusable's `draft == false`
+        # guard: without it a PR opened as a draft would never be approved
+        # until its next push.
+        types: [opened, synchronize, reopened, ready_for_review]
 
-permissions:
-    pull-requests: write
+permissions: {}
 
 jobs:
-    auto-approve:
-        name: Auto-approve (collaborators)
-        runs-on: ubuntu-24.04
-
-        steps:
-            - name: Harden Runner
-              uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
-              with:
-                  egress-policy: audit
-
-            - name: Check author permission
-              id: check-permission
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-                  REPO: ${{ github.repository }}
-              run: |
-                  # Bots are trusted if they match known bot accounts
-                  if [[ "$PR_AUTHOR" == "dependabot[bot]" || "$PR_AUTHOR" == "renovate[bot]" || "$PR_AUTHOR" == "github-actions[bot]" ]]; then
-                    echo "permission=bot" >> "$GITHUB_OUTPUT"
-                    exit 0
-                  fi
-                  PERMISSION=$(gh api "repos/$REPO/collaborators/$PR_AUTHOR/permission" --jq '.permission' 2>/dev/null || echo "none")
-                  echo "permission=$PERMISSION" >> "$GITHUB_OUTPUT"
-
-            - name: Auto-approve (collaborator)
-              if: steps.check-permission.outputs.permission == 'admin' || steps.check-permission.outputs.permission == 'write'
-              env:
-                  PR_URL: ${{ github.event.pull_request.html_url }}
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: gh pr review --approve "$PR_URL"
-
-            - name: Auto-approve (bot via APPROVE_TOKEN)
-              if: steps.check-permission.outputs.permission == 'bot'
-              env:
-                  PR_URL: ${{ github.event.pull_request.html_url }}
-                  GH_TOKEN: ${{ secrets.APPROVE_TOKEN || secrets.GITHUB_TOKEN }}
-              run: gh pr review --approve "$PR_URL" || true
+    pr-quality:
+        name: PR Quality
+        uses: netresearch/.github/.github/workflows/pr-quality.yml@main
+        permissions:
+            contents: read
+            pull-requests: write
+        with:
+            auto-approve-require-write: true
+            auto-approve-message: "**Automated approval for collaborator PR**\n\nThe author holds `admin` or `write` permission on this repository, which satisfies the single required approval. Copilot review runs separately via the org ruleset."
