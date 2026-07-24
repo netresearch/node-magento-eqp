@@ -1,64 +1,50 @@
 # Publish and create GitHub Release when a signed tag is pushed.
 # Triggered by: git tag -s vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
-# Also available via workflow_dispatch for manual reruns.
+# Also available via workflow_dispatch for manual reruns — select the vX.Y.Z
+# TAG as the run ref, not a branch: version-source manifest-verified needs a
+# tag ref and fails with a clear message otherwise.
 #
-# npm authentication uses OIDC trusted publishing (no NPM_TOKEN needed).
-# Setup: https://www.npmjs.com/package/@netresearch/node-magento-eqp/access
-# → Trusted Publisher → GitHub Actions → workflow: release.when-tagged.yml
+# Thin caller of the shared node-release reusable: build, npm publish (OIDC
+# Trusted Publishing, no token), the GitHub Packages pass, and the GitHub
+# Release all live in netresearch/.github. Zero step-level `uses:`.
+#
+# THE FILENAME MUST STAY release.when-tagged.yml. npm Trusted Publishing
+# validates the CALLER workflow's filename, not the reusable that runs
+# `npm publish`, so the Trusted Publisher on npmjs.com
+# (@netresearch/node-magento-eqp -> Trusted Publisher -> Workflow:
+# release.when-tagged.yml) keeps matching only while this filename is unchanged.
+#
+# HUSKY=0 is replaced by `--ignore-scripts` on install, which skips the
+# package.json `prepare: husky` hook the same way. `prepack` still runs at
+# publish time (it is a pack-time hook, unaffected by install --ignore-scripts).
 
 name: 📦☁️ Release
 
 on:
-    workflow_dispatch:
-    push:
-        tags:
-            - 'v*'
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
-permissions:
-    contents: write
-    packages: write
-    id-token: write # OIDC trusted publishing to npm
-
-env:
-    HUSKY: '0'
+permissions: {}
 
 jobs:
-    release:
-        name: 📦☁️ Publish and release
-        runs-on: ubuntu-24.04
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-
-            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-              with:
-                  node-version: 24
-                  registry-url: 'https://registry.npmjs.org'
-                  scope: '@netresearch'
-
-            - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
-
-            - name: ⚡ Install dependencies
-              run: bun install --frozen-lockfile
-
-            - name: 🔨 Build
-              run: bun run build:lib
-
-            - name: ☁️ Publish to NPM (OIDC + provenance)
-              run: npm publish --access=public --provenance
-
-            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-              with:
-                  node-version: 24
-                  registry-url: 'https://npm.pkg.github.com'
-                  scope: '@netresearch'
-
-            - name: ☁️ Publish to GitHub Package Registry
-              run: npm publish --access=public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: 📋 Create GitHub Release
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  TAG: ${{ github.ref_name }}
-              run: gh release create "$TAG" --generate-notes
+  release:
+    uses: netresearch/.github/.github/workflows/node-release.yml@main
+    permissions:
+      contents: write
+      id-token: write
+      packages: write
+    with:
+      runs-on: ubuntu-24.04
+      package-manager: bun
+      node-version: '24'
+      install-cmd: bun install --frozen-lockfile --ignore-scripts
+      build-cmd: bun run build:lib
+      version-source: manifest-verified
+      publish-npm: true
+      npm-access: public
+      provenance: true
+      publish-github-packages: true
+      skip-if-published: true
+      create-github-release: true
