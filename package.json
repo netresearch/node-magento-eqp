@@ -47,5 +47,9 @@
 	},
 	"resolutions": {
 		"minimatch": ">=9.0.7"
+	},
+	"overrides": {
+		"brace-expansion": "^5.0.9",
+		"postcss": "^8.5.25"
 	}
 }
