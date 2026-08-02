@@ -28,5 +28,3 @@ jobs:
       type-check-cmd: "bun run build:lib"
       build-cmd: "bun run build:lib"
       enable-format-check: false
-    secrets:
-      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
