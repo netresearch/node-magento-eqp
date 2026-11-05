@@ -50,6 +50,7 @@ TypeScript API wrapper for Adobe Commerce (Magento) Marketplace EQP API. Adapter
 - **Build exclusion:** `tsconfig.build.json` excludes `__tests__/` and `*.test.ts` from dist
 - **Pattern:** Tests live in `src/__tests__/`, mirroring the source structure
 - **Mocking:** Use `vi.fn()` for adapter mocks, `vi.stubGlobal('fetch', ...)` for FetchAdapter tests, `vi.mock()` for module-level mocks
+- **Input-dependent mocks:** use `mockImplementation` (not `mockResolvedValue`) when a mock's result must vary with its arguments, e.g. the sub-service mocks in `__tests__/services/CallbackService.test.ts`
 - **Coverage:** 75 tests, 100% coverage (statements/branches/functions/lines)
 
 ## Build & checks
