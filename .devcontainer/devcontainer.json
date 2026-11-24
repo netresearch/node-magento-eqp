@@ -1,6 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json
 {
-	"image": "node:24",
+	"image": "node:26",
 	"forwardPorts": [9229],
 	"workspaceFolder": "/app",
 	"remoteUser": "node",
